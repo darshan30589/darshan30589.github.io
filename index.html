@@ -4,251 +4,473 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Darshankumar Prajapati — Lead Data Engineer</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
+/* ══ TOKENS ═══════════════════════════════════════════════════════ */
 :root{
-  --bg:#050A14;--bg2:#0A1628;--bg3:#0F1E38;
-  --blue:#2D7DD2;--blue2:#1A5FAD;--cyan:#00C6E0;
-  --text:#E8EEF7;--text2:#8BA4C8;--text3:#4A6285;
-  --border:rgba(45,125,210,0.22);--border2:rgba(45,125,210,0.10);
-  --glow:rgba(45,125,210,0.18);
-  --mono:'Space Mono',monospace;
-  --display:'Syne',sans-serif;
-  --body:'IBM Plex Sans',sans-serif;
+  --white:    #FFFFFF;
+  --bg:       #F5F8FD;
+  --bg2:      #EBF1FA;
+  --blue:     #1460A3;
+  --blue-l:   #2779CE;
+  --blue-p:   #E3EDF9;
+  --orange:   #E8601A;
+  --orange-l: #F47A38;
+  --orange-p: #FEF0E7;
+  --dark:     #162030;
+  --mid:      #3F5870;
+  --muted:    #7A96B0;
+  --border:   #D3E2F0;
+  --shadow:   rgba(18,55,100,0.09);
+  --shadow-h: rgba(18,55,100,0.16);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:16px;line-height:1.6;overflow-x:hidden}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--white);color:var(--dark);font-family:'Lato',sans-serif;font-weight:400;line-height:1.65;overflow-x:hidden}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:16px 5%;background:rgba(5,10,20,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border2)}
-.nav-logo{font-family:var(--mono);font-size:13px;color:var(--cyan);letter-spacing:.08em}
-.nav-links{display:flex;gap:28px;list-style:none}
-.nav-links a{font-family:var(--mono);font-size:11px;color:var(--text2);text-decoration:none;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
-.nav-links a:hover{color:var(--cyan)}
-
-/* HERO */
-#hero{min-height:100vh;display:flex;align-items:center;padding:100px 5% 80px;position:relative;overflow:hidden}
-
-/* COVER IMAGE — replace cover.jpg in your GitHub repo */
-.hero-cover{
-  position:absolute;inset:0;
-  background-image:url('cover.jpg');
-  background-size:cover;background-position:center;
-  opacity:0.13;
-}
-.hero-overlay{
-  position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(5,10,20,0.97) 0%,rgba(5,10,20,0.75) 50%,rgba(10,22,40,0.92) 100%);
-}
-.hero-grid{
-  position:absolute;inset:0;
-  background-image:linear-gradient(rgba(45,125,210,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(45,125,210,0.05) 1px,transparent 1px);
-  background-size:55px 55px;
-  mask-image:radial-gradient(ellipse 80% 80% at 40% 50%,black 20%,transparent 80%);
-}
-/* Animated glowing orbs */
-.orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:pulse 6s ease-in-out infinite}
-.orb1{width:500px;height:500px;background:rgba(45,125,210,0.12);top:-100px;right:-100px;animation-delay:0s}
-.orb2{width:300px;height:300px;background:rgba(0,198,224,0.08);bottom:0;left:20%;animation-delay:3s}
-@keyframes pulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
-
-.hero-inner{position:relative;z-index:1;width:100%;display:flex;align-items:center;justify-content:space-between;gap:48px}
-.hero-content{max-width:620px}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(0,198,224,0.3);border-radius:2px;margin-bottom:26px;opacity:0;animation:fadeUp .6s ease forwards .2s}
-.hero-tag::before{content:'';width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:blink 1.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
-.hero-name{font-family:var(--display);font-size:clamp(42px,6.5vw,78px);font-weight:800;line-height:.95;letter-spacing:-.02em;margin-bottom:14px;opacity:0;animation:fadeUp .7s ease forwards .4s}
-.hero-name span{background:linear-gradient(135deg,#2D7DD2 0%,#00C6E0 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-role{font-family:var(--display);font-size:clamp(15px,2vw,22px);font-weight:500;color:var(--text2);margin-bottom:22px;opacity:0;animation:fadeUp .7s ease forwards .55s}
-.hero-desc{font-size:15.5px;color:var(--text2);line-height:1.8;margin-bottom:38px;opacity:0;animation:fadeUp .7s ease forwards .7s}
-.hero-actions{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s ease forwards .85s}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:filter .2s,transform .2s}
-.btn-primary:hover{filter:brightness(1.15);transform:translateY(-2px)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:transparent;color:var(--cyan);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:1px solid rgba(0,198,224,0.35);clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:background .2s,transform .2s}
-.btn-secondary:hover{background:rgba(0,198,224,0.08);transform:translateY(-2px)}
-
-/* PHOTO FRAME */
-.hero-photo-wrap{
-  flex-shrink:0;
-  position:relative;
-  opacity:0;animation:fadeUp .8s ease forwards 1s;
-}
-.hero-photo-frame{
-  width:260px;height:260px;
-  border-radius:50%;
-  position:relative;
-  padding:3px;
-  background:linear-gradient(135deg,var(--blue),var(--cyan),var(--blue));
-  background-size:200% 200%;
-  animation:rotateBorder 4s linear infinite;
-}
-@keyframes rotateBorder{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.hero-photo-inner{
-  width:100%;height:100%;
-  border-radius:50%;
-  overflow:hidden;
-  background:var(--bg2);
-  border:4px solid var(--bg);
-  position:relative;
-}
-.hero-photo-inner img{
-  width:100%;height:100%;
-  object-fit:cover;object-position:center top;
-  display:block;
-}
-/* Placeholder shown when no photo uploaded yet */
-.photo-placeholder{
-  width:100%;height:100%;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:var(--bg3);
-  font-family:var(--mono);
-  gap:8px;
-}
-.photo-placeholder .initials{
-  font-family:var(--display);font-size:52px;font-weight:800;
-  background:linear-gradient(135deg,var(--blue),var(--cyan));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
-.photo-placeholder p{font-size:10px;color:var(--text3);letter-spacing:.1em;text-align:center;padding:0 16px}
-/* Glow ring behind photo */
-.hero-photo-wrap::before{
-  content:'';
-  position:absolute;inset:-20px;
-  border-radius:50%;
-  background:radial-gradient(circle,rgba(45,125,210,0.2) 0%,transparent 70%);
-  z-index:-1;
-  animation:pulse 3s ease-in-out infinite;
-}
-/* Stats row below photo */
-.hero-stats{
-  display:flex;justify-content:center;gap:24px;
-  margin-top:20px;
-}
-.stat-item{text-align:center}
-.stat-num{font-family:var(--display);font-size:26px;font-weight:800;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
-.stat-label{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase}
-
-/* SECTIONS */
-section{padding:96px 5%;position:relative;z-index:1}
-.section-header{margin-bottom:56px}
-.section-tag{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:10px;display:block}
-.section-title{font-family:var(--display);font-size:clamp(26px,4vw,42px);font-weight:700;line-height:1.1;letter-spacing:-.02em}
-.section-line{width:44px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin-top:14px}
-
-/* ABOUT */
-#about{background:var(--bg2)}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
-.about-text p{color:var(--text2);line-height:1.9;margin-bottom:14px;font-size:15px}
-.about-text strong{color:var(--text)}
-.about-cards{display:flex;flex-direction:column;gap:14px}
-.acard{padding:16px 20px;background:var(--bg3);border:1px solid var(--border2);border-left:3px solid var(--blue);transition:border-color .2s,transform .2s}
-.acard:hover{border-left-color:var(--cyan);transform:translateX(4px)}
-.acard h4{font-family:var(--display);font-size:13.5px;font-weight:600;color:var(--cyan);margin-bottom:3px}
-.acard p{font-size:13px;color:var(--text2);line-height:1.6}
-
-/* SKILLS */
-#skills{background:var(--bg)}
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
-.sgroup{background:var(--bg2);border:1px solid var(--border2);padding:22px;transition:border-color .25s,box-shadow .25s}
-.sgroup:hover{border-color:var(--border);box-shadow:0 0 28px var(--glow)}
-.sgroup-hdr{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-.sicon{width:34px;height:34px;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.sname{font-family:var(--display);font-size:13.5px;font-weight:600;color:var(--text)}
-.stags{display:flex;flex-wrap:wrap;gap:6px}
-.stag{padding:4px 10px;background:rgba(45,125,210,0.1);border:1px solid rgba(45,125,210,0.2);font-family:var(--mono);font-size:11px;color:var(--text2);transition:background .15s,color .15s}
-.stag:hover{background:rgba(45,125,210,0.22);color:var(--text)}
-.stag.hot{background:rgba(0,198,224,0.1);border-color:rgba(0,198,224,0.25);color:var(--cyan)}
-
-/* EXPERIENCE */
-#experience{background:var(--bg2)}
-.timeline{position:relative;padding-left:28px}
-.timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--blue) 0%,rgba(45,125,210,0.08) 100%)}
-.titem{position:relative;margin-bottom:48px;opacity:0;transform:translateX(-16px);transition:opacity .5s,transform .5s}
-.titem.visible{opacity:1;transform:translateX(0)}
-.tdot{position:absolute;left:-34px;top:8px;width:11px;height:11px;background:var(--blue);border:2px solid var(--bg2);border-radius:50%;box-shadow:0 0 10px rgba(45,125,210,0.5)}
-.tdate{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;margin-bottom:5px}
-.ttitle{font-family:var(--display);font-size:19px;font-weight:700;color:var(--text);margin-bottom:2px}
-.torg{font-size:14px;color:var(--text2);margin-bottom:12px}
-.torg span{color:var(--text3);font-style:italic}
-.tpoints{list-style:none;display:flex;flex-direction:column;gap:6px}
-.tpoints li{font-size:14px;color:var(--text2);line-height:1.7;padding-left:14px;position:relative}
-.tpoints li::before{content:'▸';position:absolute;left:0;color:var(--blue);font-size:10px;top:5px}
-.ttech{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.ttech span{padding:2px 8px;background:transparent;border:1px solid var(--border);font-family:var(--mono);font-size:10px;color:var(--text3)}
-
-/* PROJECTS */
-#projects{background:var(--bg)}
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:22px}
-.pcard{background:var(--bg2);border:1px solid var(--border2);padding:26px;position:relative;overflow:hidden;transition:border-color .25s,transform .25s,box-shadow .25s}
-.pcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--cyan));transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.pcard:hover{border-color:var(--border);transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.4),0 0 28px var(--glow)}
-.pcard:hover::before{transform:scaleX(1)}
-.pnum{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:.1em;margin-bottom:12px}
-.pname{font-family:var(--display);font-size:17px;font-weight:700;color:var(--text);margin-bottom:2px}
-/* Client line */
-.pclient{font-family:var(--mono);font-size:11px;color:var(--cyan);margin-bottom:2px}
-/* Employer line — smaller, subdued */
-.pemployer{font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:14px}
-.pdesc{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:14px}
-.presult{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(45,125,210,0.08);border-left:2px solid var(--blue);font-size:12.5px;color:var(--text);margin-bottom:14px}
-.pstack{display:flex;flex-wrap:wrap;gap:5px}
-.pstack span{font-family:var(--mono);font-size:10px;color:var(--text3);padding:2px 7px;border:1px solid var(--border2)}
-
-/* CERTS */
-#certifications{background:var(--bg2)}
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:14px}
-.ccard{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--bg3);border:1px solid var(--border2);transition:border-color .2s,box-shadow .2s}
-.ccard:hover{border-color:var(--border);box-shadow:0 0 18px var(--glow)}
-.cbadge{width:42px;height:42px;flex-shrink:0;background:linear-gradient(135deg,var(--bg),var(--bg2));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:19px}
-.cinfo h4{font-family:var(--display);font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px}
-.cinfo p{font-size:11.5px;color:var(--text3)}
-.ctype{display:inline-block;margin-top:4px;font-family:var(--mono);font-size:9px;padding:2px 6px;letter-spacing:.07em;text-transform:uppercase}
-.ctype.proctored{background:rgba(0,198,224,0.12);color:var(--cyan)}
-.ctype.verified{background:rgba(45,125,210,0.12);color:var(--blue)}
-
-/* CONTACT */
-#contact{background:var(--bg);position:relative;overflow:hidden}
-#contact::before{content:'';position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(45,125,210,0.1) 0%,transparent 70%);pointer-events:none}
-.contact-inner{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
-.contact-inner .section-line{margin:14px auto 36px}
-.contact-inner>p{color:var(--text2);font-size:15.5px;line-height:1.8;margin-bottom:38px}
-.clinks{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:44px}
-.clink{display:flex;align-items:center;gap:8px;padding:11px 20px;background:var(--bg2);border:1px solid var(--border);text-decoration:none;color:var(--text2);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;transition:border-color .2s,color .2s,box-shadow .2s}
-.clink:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 18px rgba(0,198,224,0.12)}
-.cform{background:var(--bg2);border:1px solid var(--border);padding:32px;text-align:left}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
-.fg label{font-family:var(--mono);font-size:9.5px;color:var(--text3);letter-spacing:.12em;text-transform:uppercase}
-.fg input,.fg textarea{background:var(--bg3);border:1px solid var(--border2);padding:10px 13px;color:var(--text);font-family:var(--body);font-size:13.5px;outline:none;transition:border-color .2s}
-.fg input:focus,.fg textarea:focus{border-color:var(--blue)}
-.fg textarea{resize:vertical;min-height:100px}
-.fg input::placeholder,.fg textarea::placeholder{color:var(--text3)}
-.bsub{width:100%;padding:13px;background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;border:none;cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:filter .2s}
-.bsub:hover{filter:brightness(1.15)}
-.fnote{font-family:var(--mono);font-size:10px;color:var(--text3);text-align:center;margin-top:10px}
-
-footer{padding:24px 5%;border-top:1px solid var(--border2);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;position:relative;z-index:1}
-.fleft{font-family:var(--mono);font-size:11.5px;color:var(--text3)}
-.fright{font-family:var(--mono);font-size:10.5px;color:var(--text3)}
-
-/* ANIMATIONS */
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
-.reveal.visible{opacity:1;transform:translateY(0)}
+/* ══ SCROLLBAR ══ */
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--blue2)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
 
-/* MOBILE */
+/* ══ NAV ══════════════════════════════════════════════════════════ */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(16px);
+  border-bottom:2px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 6%;
+  height:64px;
+}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-initials{
+  width:36px;height:36px;border-radius:50%;
+  background:linear-gradient(135deg,var(--blue),var(--blue-l));
+  color:#fff;font-weight:900;font-size:13px;
+  display:flex;align-items:center;justify-content:center;
+  letter-spacing:.04em;
+}
+.nav-name{font-weight:700;font-size:14px;color:var(--dark);letter-spacing:-.01em}
+.nav-links{display:flex;gap:6px;list-style:none}
+.nav-links a{
+  font-size:13px;font-weight:700;color:var(--mid);
+  text-decoration:none;padding:6px 12px;border-radius:6px;
+  letter-spacing:.04em;text-transform:uppercase;
+  transition:color .2s,background .2s;
+}
+.nav-links a:hover{color:var(--orange);background:var(--orange-p)}
+.nav-links a.active{color:var(--blue);background:var(--blue-p)}
+.nav-cta{
+  padding:8px 20px;
+  background:var(--orange);color:#fff;
+  font-weight:700;font-size:13px;
+  text-decoration:none;border-radius:6px;
+  letter-spacing:.04em;
+  transition:background .2s,transform .15s;
+  white-space:nowrap;
+}
+.nav-cta:hover{background:var(--orange-l);transform:translateY(-1px)}
+
+/* ══ HERO ══════════════════════════════════════════════════════════ */
+#hero{
+  min-height:100vh;
+  display:flex;align-items:center;
+  padding:96px 6% 64px;
+  background:var(--white);
+  position:relative;overflow:hidden;
+}
+/* Geometric bg accent */
+.hero-shape{
+  position:absolute;right:-80px;top:-80px;
+  width:520px;height:520px;
+  background:linear-gradient(135deg,var(--blue-p) 0%,rgba(225,238,252,0) 70%);
+  border-radius:50%;
+  pointer-events:none;
+}
+.hero-shape2{
+  position:absolute;left:-60px;bottom:-60px;
+  width:300px;height:300px;
+  background:radial-gradient(circle,var(--orange-p) 0%,rgba(255,240,231,0) 70%);
+  pointer-events:none;
+}
+/* Orange rule across hero top area */
+.hero-rule{
+  position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--blue) 0%,var(--blue-l) 40%,var(--orange) 70%,var(--orange-l) 100%);
+}
+.hero-inner{
+  position:relative;z-index:1;
+  width:100%;max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:18px;
+  opacity:0;animation:fUp .5s ease forwards .1s;
+}
+.hero-eyebrow::before{content:'';width:28px;height:2px;background:var(--orange);display:inline-block}
+h1.hero-name{
+  font-size:clamp(44px,6vw,80px);
+  font-weight:900;line-height:.95;letter-spacing:-.03em;
+  color:var(--dark);margin-bottom:16px;
+  opacity:0;animation:fUp .6s ease forwards .25s;
+}
+h1.hero-name .accent{
+  color:var(--blue);
+  position:relative;
+  display:inline-block;
+}
+h1.hero-name .accent::after{
+  content:'';
+  position:absolute;left:0;bottom:-4px;width:100%;height:4px;
+  background:var(--orange);
+  transform:scaleX(0);transform-origin:left;
+  animation:barIn .5s ease forwards .85s;
+}
+@keyframes barIn{to{transform:scaleX(1)}}
+.hero-role{
+  font-size:clamp(16px,2vw,22px);font-weight:300;
+  color:var(--mid);margin-bottom:28px;letter-spacing:-.01em;
+  opacity:0;animation:fUp .6s ease forwards .4s;
+}
+.hero-role strong{font-weight:700;color:var(--blue)}
+.hero-tagline{
+  font-size:15.5px;color:var(--mid);line-height:1.8;
+  max-width:540px;margin-bottom:40px;
+  opacity:0;animation:fUp .6s ease forwards .55s;
+}
+.hero-pills{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:36px;
+  opacity:0;animation:fUp .6s ease forwards .65s;
+}
+.hpill{
+  padding:5px 13px;border-radius:20px;font-size:12.5px;font-weight:700;
+  letter-spacing:.04em;
+}
+.hpill.b{background:var(--blue-p);color:var(--blue)}
+.hpill.o{background:var(--orange-p);color:var(--orange)}
+.hero-actions{
+  display:flex;gap:14px;flex-wrap:wrap;
+  opacity:0;animation:fUp .6s ease forwards .75s;
+}
+.btn-blue{
+  padding:13px 28px;background:var(--blue);color:#fff;
+  font-weight:700;font-size:14px;border-radius:8px;
+  text-decoration:none;letter-spacing:.04em;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 16px rgba(20,96,163,0.25);
+}
+.btn-blue:hover{background:var(--blue-l);transform:translateY(-2px);box-shadow:0 8px 24px rgba(20,96,163,0.3)}
+.btn-orange{
+  padding:12px 28px;background:transparent;color:var(--orange);
+  font-weight:700;font-size:14px;border-radius:8px;
+  text-decoration:none;letter-spacing:.04em;
+  border:2px solid var(--orange);
+  transition:background .2s,color .2s,transform .15s;
+}
+.btn-orange:hover{background:var(--orange);color:#fff;transform:translateY(-2px)}
+
+/* PHOTO */
+.hero-photo{
+  position:relative;flex-shrink:0;
+  opacity:0;animation:fUp .7s ease forwards .9s;
+}
+.photo-frame{
+  width:260px;height:310px;
+  border-radius:16px 16px 80px 16px;
+  overflow:hidden;position:relative;
+  box-shadow:0 24px 64px var(--shadow-h);
+}
+.photo-frame img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.photo-placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(160deg,var(--blue-p),var(--bg2));
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:8px;
+}
+.photo-placeholder .pi{font-size:56px;font-weight:900;color:var(--blue);opacity:.35}
+.photo-placeholder p{font-size:11px;color:var(--muted);text-align:center;letter-spacing:.04em}
+/* Orange corner accent */
+.photo-accent{
+  position:absolute;bottom:-14px;right:-14px;
+  width:80px;height:80px;
+  background:var(--orange);
+  border-radius:0 0 16px 0;
+  z-index:-1;
+}
+.photo-badge{
+  position:absolute;top:-14px;left:-20px;
+  background:var(--white);border:2px solid var(--border);
+  border-radius:10px;padding:10px 14px;
+  box-shadow:0 8px 24px var(--shadow);
+  white-space:nowrap;
+}
+.photo-badge-num{font-size:20px;font-weight:900;color:var(--blue);line-height:1}
+.photo-badge-txt{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+
+/* ══ SECTION WRAPPER ══════════════════════════════════════════════ */
+.sec-white{background:var(--white);padding:88px 6%}
+.sec-gray{background:var(--bg);padding:88px 6%}
+.inner{max-width:1200px;margin:0 auto}
+
+.sec-label{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:11.5px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.sec-label.blue{color:var(--blue)}
+.sec-label.orange{color:var(--orange)}
+.sec-label::before{content:'';width:24px;height:2px;display:inline-block}
+.sec-label.blue::before{background:var(--blue)}
+.sec-label.orange::before{background:var(--orange)}
+
+.sec-title{
+  font-size:clamp(28px,4vw,42px);font-weight:900;
+  letter-spacing:-.025em;line-height:1.05;color:var(--dark);
+  margin-bottom:48px;
+}
+.sec-title span.b{color:var(--blue)}
+.sec-title span.o{color:var(--orange)}
+
+/* ══ ABOUT ══════════════════════════════════════════════════════════ */
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:64px;align-items:start}
+.about-body p{color:var(--mid);font-size:15.5px;line-height:1.85;margin-bottom:14px}
+.about-body p strong{color:var(--dark);font-weight:700}
+.about-body p em{color:var(--orange);font-style:normal;font-weight:700}
+.about-cards{display:flex;flex-direction:column;gap:14px}
+.acard{
+  padding:18px 20px;
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:10px;
+  border-left:4px solid var(--blue);
+  transition:border-left-color .2s,box-shadow .2s,transform .2s;
+}
+.acard:hover{border-left-color:var(--orange);box-shadow:0 6px 24px var(--shadow);transform:translateX(3px)}
+.acard:nth-child(even){border-left-color:var(--orange)}
+.acard:nth-child(even):hover{border-left-color:var(--blue)}
+.acard h4{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:4px}
+.acard p{font-size:13px;color:var(--mid);line-height:1.6}
+
+/* ══ SKILLS ══════════════════════════════════════════════════════════ */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.sgroup{
+  background:var(--white);border:1.5px solid var(--border);border-radius:12px;
+  padding:22px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.sgroup:hover{border-color:var(--blue-l);box-shadow:0 8px 28px var(--shadow)}
+.sgroup-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.sicon{
+  width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.sicon.b{background:var(--blue-p)}
+.sicon.o{background:var(--orange-p)}
+.sname{font-size:14px;font-weight:700;color:var(--dark)}
+.stags{display:flex;flex-wrap:wrap;gap:6px}
+.stag{
+  padding:4px 10px;border-radius:20px;
+  font-size:12px;font-weight:700;
+  background:var(--bg);color:var(--mid);border:1px solid var(--border);
+  transition:background .15s,color .15s;cursor:default;
+}
+.stag:hover{background:var(--blue-p);color:var(--blue)}
+.stag.hot{background:var(--blue-p);color:var(--blue);border-color:rgba(20,96,163,.2)}
+.stag.hoto{background:var(--orange-p);color:var(--orange);border-color:rgba(232,96,26,.2)}
+
+/* ══ EXPERIENCE ══════════════════════════════════════════════════════ */
+.timeline{position:relative;padding-left:32px;max-width:820px}
+.timeline::before{
+  content:'';position:absolute;left:5px;top:12px;bottom:12px;
+  width:2px;
+  background:linear-gradient(180deg,var(--blue) 0%,var(--orange) 50%,var(--blue) 100%);
+  border-radius:2px;
+}
+.titem{
+  position:relative;margin-bottom:44px;
+  opacity:0;transform:translateX(-12px);
+  transition:opacity .5s,transform .5s;
+}
+.titem.visible{opacity:1;transform:translateX(0)}
+.titem:nth-child(odd) .tdot{background:var(--blue);box-shadow:0 0 0 3px var(--blue-p)}
+.titem:nth-child(even) .tdot{background:var(--orange);box-shadow:0 0 0 3px var(--orange-p)}
+.tdot{
+  position:absolute;left:-32px;top:10px;
+  width:12px;height:12px;border-radius:50%;border:2px solid var(--white);
+}
+.tdate{
+  font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:4px;
+}
+.titem:nth-child(odd) .tdate{color:var(--blue)}
+.titem:nth-child(even) .tdate{color:var(--orange)}
+.ttitle{font-size:19px;font-weight:900;color:var(--dark);letter-spacing:-.01em;margin-bottom:2px}
+.torg{font-size:14px;color:var(--mid);margin-bottom:12px;font-weight:400}
+.torg strong{color:var(--dark);font-weight:700}
+.tpoints{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.tpoints li{
+  font-size:14px;color:var(--mid);line-height:1.7;
+  padding-left:16px;position:relative;
+}
+.tpoints li::before{content:'→';position:absolute;left:0;font-size:11px;top:4px;color:var(--blue);font-weight:700}
+.titem:nth-child(even) .tpoints li::before{color:var(--orange)}
+.ttech{display:flex;flex-wrap:wrap;gap:6px}
+.ttech span{
+  padding:3px 9px;border-radius:4px;
+  font-size:11.5px;font-weight:700;
+  background:var(--bg2);color:var(--mid);border:1px solid var(--border);
+}
+
+/* ══ PROJECTS ══════════════════════════════════════════════════════ */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:22px}
+.pcard{
+  background:var(--white);border:1.5px solid var(--border);border-radius:12px;
+  padding:26px;position:relative;overflow:hidden;
+  transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.pcard::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s;
+}
+.pcard.pc-blue::before{background:linear-gradient(90deg,var(--blue),var(--blue-l))}
+.pcard.pc-orange::before{background:linear-gradient(90deg,var(--orange),var(--orange-l))}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 16px 40px var(--shadow-h);border-color:transparent}
+.pcard:hover::before{transform:scaleX(1)}
+.pcard.pc-blue:hover{border-color:var(--blue-p)}
+.pcard.pc-orange:hover{border-color:var(--orange-p)}
+.pnum{
+  font-size:10.5px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.pcard.pc-blue .pnum{color:var(--blue)}
+.pcard.pc-orange .pnum{color:var(--orange)}
+.pname{font-size:17px;font-weight:900;color:var(--dark);letter-spacing:-.01em;margin-bottom:4px}
+.pclient{font-size:12.5px;font-weight:700;color:var(--blue);margin-bottom:2px}
+.pcard.pc-orange .pclient{color:var(--orange)}
+.pemployer{font-size:11.5px;color:var(--muted);font-weight:400;margin-bottom:14px}
+.pdesc{font-size:13.5px;color:var(--mid);line-height:1.75;margin-bottom:14px}
+.presult{
+  display:flex;align-items:flex-start;gap:8px;
+  padding:9px 12px;border-radius:6px;
+  font-size:13px;color:var(--dark);font-weight:700;margin-bottom:14px;
+}
+.pcard.pc-blue .presult{background:var(--blue-p)}
+.pcard.pc-orange .presult{background:var(--orange-p)}
+.pstack{display:flex;flex-wrap:wrap;gap:5px}
+.pstack span{
+  font-size:11px;font-weight:700;
+  padding:3px 8px;border-radius:4px;
+  background:var(--bg);color:var(--mid);border:1px solid var(--border);
+}
+
+/* ══ CERTIFICATIONS ══════════════════════════════════════════════ */
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ccard{
+  display:flex;align-items:center;gap:14px;
+  padding:15px 18px;background:var(--white);
+  border:1.5px solid var(--border);border-radius:10px;
+  transition:border-color .2s,box-shadow .2s;
+}
+.ccard:hover{border-color:var(--blue-l);box-shadow:0 6px 20px var(--shadow)}
+.cbadge{
+  width:40px;height:40px;flex-shrink:0;
+  background:var(--bg2);border:1.5px solid var(--border);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.cinfo h4{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px}
+.cinfo p{font-size:11.5px;color:var(--muted)}
+.ctag{
+  display:inline-block;margin-top:4px;
+  font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:4px;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.ctag.p{background:var(--blue-p);color:var(--blue)}
+.ctag.v{background:var(--orange-p);color:var(--orange)}
+
+/* ══ CONTACT ══════════════════════════════════════════════════════ */
+.contact-inner{max-width:680px;margin:0 auto;text-align:center}
+.contact-inner .sec-label{justify-content:center;display:flex}
+.contact-inner .sec-title{margin-bottom:16px}
+.contact-intro{font-size:16px;color:var(--mid);line-height:1.8;margin-bottom:44px}
+.clinks{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:44px}
+.clink{
+  display:flex;align-items:center;gap:8px;
+  padding:12px 22px;background:var(--white);
+  border:1.5px solid var(--border);border-radius:10px;
+  text-decoration:none;color:var(--mid);
+  font-size:13.5px;font-weight:700;
+  transition:border-color .2s,color .2s,box-shadow .2s,transform .15s;
+}
+.clink:hover{border-color:var(--orange);color:var(--orange);box-shadow:0 6px 20px rgba(232,96,26,.12);transform:translateY(-2px)}
+.clink .clink-icon{font-size:16px}
+.cform{
+  background:var(--white);border:1.5px solid var(--border);border-radius:14px;
+  padding:36px;text-align:left;
+  box-shadow:0 12px 40px var(--shadow);
+}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.fg{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.fg label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.fg input,.fg textarea{
+  padding:11px 14px;border:1.5px solid var(--border);border-radius:8px;
+  background:var(--bg);color:var(--dark);font-family:'Lato',sans-serif;font-size:14px;
+  outline:none;transition:border-color .2s,box-shadow .2s;
+}
+.fg input:focus,.fg textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(20,96,163,.1)}
+.fg textarea{resize:vertical;min-height:100px}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--muted)}
+.bsub{
+  width:100%;padding:14px;background:var(--orange);color:#fff;border:none;cursor:pointer;
+  font-family:'Lato',sans-serif;font-weight:700;font-size:14px;
+  border-radius:8px;letter-spacing:.06em;text-transform:uppercase;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 4px 14px rgba(232,96,26,.3);
+}
+.bsub:hover{background:var(--orange-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,96,26,.35)}
+.fnote{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ══ FOOTER ══════════════════════════════════════════════════════ */
+footer{
+  background:var(--dark);padding:32px 6%;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:12px;
+}
+.fl{font-size:13px;color:rgba(255,255,255,.55)}
+.fl strong{color:#fff;font-weight:700}
+.fr{display:flex;gap:16px}
+.fr a{font-size:12.5px;color:rgba(255,255,255,.4);text-decoration:none;font-weight:700;letter-spacing:.04em;transition:color .2s}
+.fr a:hover{color:var(--orange)}
+
+/* ══ UTILS ════════════════════════════════════════════════════════ */
+@keyframes fUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.divider{
+  height:4px;background:linear-gradient(90deg,var(--blue) 0%,var(--blue-l) 35%,var(--orange) 65%,var(--orange-l) 100%);
+}
+
+/* ══ RESPONSIVE ═══════════════════════════════════════════════════ */
 @media(max-width:900px){
-  .hero-inner{flex-direction:column-reverse;text-align:center}
-  .hero-photo-wrap{margin-bottom:0}
-  .hero-actions{justify-content:center}
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .hero-photo{order:-1;display:flex;justify-content:center}
+  .photo-frame{width:200px;height:240px}
   .about-grid{grid-template-columns:1fr}
   .frow{grid-template-columns:1fr}
   .nav-links{display:none}
-  .hero-photo-frame{width:200px;height:200px}
+  .nav-cta{padding:7px 14px;font-size:12px}
+}
+@media(max-width:600px){
+  .sec-white,.sec-gray{padding:64px 5%}
+  h1.hero-name{font-size:44px}
 }
 </style>
 </head>
@@ -256,7 +478,10 @@ footer{padding:24px 5%;border-top:1px solid var(--border2);display:flex;justify-
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">DP_</div>
+  <div class="nav-brand">
+    <div class="nav-initials">DP</div>
+    <span class="nav-name">Darshankumar Prajapati</span>
+  </div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
     <li><a href="#skills">Skills</a></li>
@@ -265,371 +490,469 @@ footer{padding:24px 5%;border-top:1px solid var(--border2);display:flex;justify-
     <li><a href="#certifications">Certs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="#contact" class="nav-cta">Hire Me</a>
 </nav>
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-cover"></div>
-  <div class="hero-overlay"></div>
-  <div class="hero-grid"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-
-  <div class="hero-inner">
+  <div class="hero-rule"></div>
+  <div class="hero-shape"></div>
+  <div class="hero-shape2"></div>
+  <div class="hero-inner inner">
     <div class="hero-content">
-      <div class="hero-tag">Available · UAE &amp; GCC · Senior / Lead Roles</div>
-      <h1 class="hero-name">Darshankumar<br><span>Prajapati</span></h1>
-      <p class="hero-role">Lead Data Engineer · Dataiku DSS Admin · AI/ML Pipeline Architect</p>
-      <p class="hero-desc">12+ years building enterprise data platforms for UAE government, healthcare &amp; US telecom. Sole Dataiku DSS Administrator at MoHRE — delivering AI-powered pipelines from raw data to trusted intelligence.</p>
+      <div class="hero-eyebrow">Dubai, UAE &nbsp;·&nbsp; Open to Senior / Lead Roles</div>
+      <h1 class="hero-name">Darshankumar<br><span class="accent">Prajapati</span></h1>
+      <p class="hero-role"><strong>Lead Data Engineer</strong> &nbsp;·&nbsp; AI/ML Pipeline Architect &nbsp;·&nbsp; DWH Specialist</p>
+      <p class="hero-tagline">13+ years delivering enterprise data platforms for UAE government, healthcare &amp; US telecom. Expert in Dataiku DSS, Informatica IICS, Snowflake, and building AI-powered data pipelines from raw data to trusted business intelligence.</p>
+      <div class="hero-pills">
+        <span class="hpill b">Dataiku DSS</span>
+        <span class="hpill b">Informatica IICS</span>
+        <span class="hpill b">Snowflake</span>
+        <span class="hpill o">Fabric Data Engineering</span>
+        <span class="hpill o">OpenAI / GenAI</span>
+        <span class="hpill b">Databrics</span>
+        <span class="hpill o">Oracle DWH</span>
+      </div>
       <div class="hero-actions">
-        <a href="#contact" class="btn-primary">⟶ Get in Touch</a>
-        <a href="#projects" class="btn-secondary">View Projects</a>
+        <a href="#projects" class="btn-blue">View My Work</a>
+        <a href="#contact" class="btn-orange">Get in Touch</a>
       </div>
     </div>
-
-    <!-- PHOTO — upload photo.jpg & cover.jpg to your GitHub repo -->
-    <div class="hero-photo-wrap">
-      <div class="hero-photo-frame">
-        <div class="hero-photo-inner">
-          <!-- Once you upload photo.jpg to GitHub, it auto-shows -->
-          <img src="photo.jpg" alt="Darshankumar Prajapati"
-               onerror="this.style.display='none';document.getElementById('pholder').style.display='flex'">
-          <div id="pholder" class="photo-placeholder" style="display:none">
-            <div class="initials">DP</div>
-            <p>Upload photo.jpg<br>to your repo</p>
+    <div class="hero-photo">
+      <div style="position:relative">
+        <div class="photo-badge">
+          <div class="photo-badge-num">13+</div>
+          <div class="photo-badge-txt">Years Exp.</div>
+        </div>
+        <div class="photo-frame">
+          <img src="photo.jpeg" alt="Darshankumar Prajapati"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="photo-placeholder" style="display:none">
+            <div class="pi">DP</div>
+            <p>Upload photo.jpeg<br>to your GitHub repo</p>
           </div>
         </div>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item"><div class="stat-num">12+</div><div class="stat-label">Years</div></div>
-        <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Domains</div></div>
-        <div class="stat-item"><div class="stat-num">25%</div><div class="stat-label">AI Gain</div></div>
+        <div class="photo-accent"></div>
       </div>
     </div>
   </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- ABOUT -->
-<section id="about">
-  <div class="section-header reveal">
-    <span class="section-tag">// 01 — About Me</span>
-    <h2 class="section-title">Data Engineer.<br>Platform Owner.<br>AI Builder.</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-text reveal">
-      <p>I'm a <strong>Lead Data Engineer based in Dubai, UAE</strong> with 12+ years of experience designing and operating enterprise-scale data platforms. I specialise in the complete data journey — from raw ingestion and wrangling to ML model deployment and governed analytics.</p>
-      <p>At <strong>MoHRE (UAE Ministry of Human Resources &amp; Emiratisation)</strong> I serve as the sole Dataiku DSS Administrator — owning platform installation, two major version upgrades (12.x → 13.5 → 14.2.2), and delivering a production AI/ML pipeline that improved company classification accuracy by 25% using Dataiku + OpenAI.</p>
-      <p>My career spans <strong>UAE Government, Healthcare (SEHA), Energy (ADNOC), US Telecom (ATC, T-Mobile), and Royalty (Crown Prince Court, Abu Dhabi)</strong> — cross-domain depth that few data engineers accumulate in 12 years.</p>
+<div class="sec-white" id="about">
+  <div class="inner">
+    <div class="sec-label blue">01 — About Me</div>
+    <h2 class="sec-title">Data Engineer. <span class="b">AI Builder.</span><br>Platform <span class="o">Owner.</span></h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>I'm a <strong>Lead Data Engineer based in Dubai, UAE</strong> with 13+ years of experience designing and running enterprise-scale data platforms. I specialise in the full data journey — from ingestion and wrangling through to ML model deployment and governed analytics.</p>
+        <p>At <strong>MoHRE (UAE Ministry of Human Resources &amp; Emiratisation)</strong> I lead Dataiku DSS platform delivery — building production AI/ML pipelines including the <em>Dynamic Risk Matrix (DRM)</em>, which consolidates 35+ business rules per company into a single risk score, and the <em>ISIC-4</em> economic classification pipeline using Dataiku and OpenAI.</p>
+        <p>Previously at <strong>ClearPeaks SL</strong> I delivered data engineering for Crown Prince Court (Abu Dhabi), ADNOC, and American Tower Corporation (US). My career spans <strong>UAE Government, Healthcare, Energy, US Telecom, and KSA Health</strong> — cross-domain depth built across six organisations over 13 years.</p>
+        <p>I hold a <strong>SnowPro Core Certification</strong>, Oracle Cloud Architect, and multiple Informatica and Dataiku certifications. I'm actively expanding in Azure and deepening AI/GenAI pipeline delivery.</p>
+      </div>
+      <div class="about-cards reveal reveal-d2">
+        <div class="acard"><h4>Dataiku DSS — Platform Lead</h4><p>Flow design, GenAI recipes, LLM Mesh, Scenarios, API nodes, ML Lab, version upgrades. Enterprise license.</p></div>
+        <div class="acard"><h4>Informatica IICS — 13 Years Depth</h4><p>CDI, CAI, CDGC, MDM SaaS. Secure Agent, Snowflake PDO, PowerCenter 9x/10x. Cloud and on-prem.</p></div>
+        <div class="acard"><h4>Snowflake — SnowPro Core Certified</h4><p>DWH architecture, Streams &amp; Tasks CDC, Snowpipe, Data Sharing, Snowpark, cost governance.</p></div>
+        <div class="acard"><h4>Azure — Hands-on, Actively Expanding</h4><p>ADF pipelines, Synapse Analytics, ADLS Gen2. AZ-900 completed · DP-203 in progress.</p></div>
+      </div>
     </div>
-    <div class="about-cards reveal">
-      <div class="acard"><h4>Dataiku DSS — Full Platform Owner</h4><p>Admin, upgrades 12.x→14.2.2, GenAI recipes, LLM Mesh, Scenarios, API nodes, ML Lab. Enterprise only.</p></div>
-      <div class="acard"><h4>Informatica IICS — 12 Years Deep</h4><p>CDI, CAI, CDGC, MDM SaaS. Secure Agent, Snowflake PDO, PowerCenter 9x/10x. Cloud + on-prem.</p></div>
-      <div class="acard"><h4>Snowflake — SnowPro Core Certified</h4><p>DWH architecture, Streams & Tasks (CDC), Snowpipe, Data Sharing, Snowpark, cost governance.</p></div>
-      <div class="acard"><h4>Azure — Actively Expanding</h4><p>ADF pipelines, Synapse Analytics, ADLS Gen2. AZ-900 completed · DP-203 in progress.</p></div>
-    </div>
   </div>
-</section>
+</div>
+
+<div class="divider"></div>
 
 <!-- SKILLS -->
-<section id="skills">
-  <div class="section-header reveal">
-    <span class="section-tag">// 02 — Tech Stack</span>
-    <h2 class="section-title">Skills &amp;<br>Technologies</h2>
-    <div class="section-line"></div>
+<div class="sec-gray" id="skills">
+  <div class="inner">
+    <div class="sec-label orange">02 — Tech Stack</div>
+    <h2 class="sec-title">Skills &amp; <span class="o">Technologies</span></h2>
+    <div class="skills-grid">
+      <div class="sgroup reveal">
+        <div class="sgroup-hdr"><div class="sicon b">🧬</div><div class="sname">Dataiku DSS</div></div>
+        <div class="stags">
+          <span class="stag hot">LLM Mesh</span><span class="stag hot">GenAI Recipes</span><span class="stag hot">ML Lab</span>
+          <span class="stag">API Designer</span><span class="stag">Scenarios</span><span class="stag">Prompt Studio</span>
+          <span class="stag">Data Catalog</span><span class="stag">Python Recipes</span><span class="stag">SQL Recipes</span><span class="stag">Version Upgrades</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d1">
+        <div class="sgroup-hdr"><div class="sicon o">⚡</div><div class="sname">Informatica</div></div>
+        <div class="stags">
+          <span class="stag hoto">IICS CDI</span><span class="stag hoto">CDGC</span><span class="stag hoto">MDM SaaS</span>
+          <span class="stag">CAI</span><span class="stag">Mass Ingestion</span><span class="stag">Secure Agent</span>
+          <span class="stag">Snowflake PDO</span><span class="stag">Taskflows</span><span class="stag">PowerCenter 9x/10x</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d2">
+        <div class="sgroup-hdr"><div class="sicon b">❄️</div><div class="sname">Snowflake</div></div>
+        <div class="stags">
+          <span class="stag hot">SnowPro Certified</span><span class="stag">Streams &amp; Tasks</span>
+          <span class="stag">Snowpipe</span><span class="stag">Data Sharing</span><span class="stag">Dynamic Masking</span>
+          <span class="stag">Zero-Copy Clone</span><span class="stag">Snowpark</span><span class="stag">SnowSQL</span>
+        </div>
+      </div>
+      <div class="sgroup reveal">
+        <div class="sgroup-hdr"><div class="sicon o">☁️</div><div class="sname">Cloud Platforms</div></div>
+        <div class="stags">
+          <span class="stag hoto">Fabric Data Engineering</span><span class="stag hoto">Azure Synapse</span>
+          <span class="stag">ADLS Gen2</span><span class="stag">Oracle OCI</span>
+          <span class="stag">Oracle ADB</span><span class="stag">Azure DevOps</span>
+          <span class="stag">GCP Concepts</span><span class="stag">AWS Concepts</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d1">
+        <div class="sgroup-hdr"><div class="sicon b">🤖</div><div class="sname">AI / ML / GenAI</div></div>
+        <div class="stags">
+          <span class="stag hot">OpenAI API</span><span class="stag hot">RAG Pipelines</span>
+          <span class="stag">LLM Guardrails</span><span class="stag">Vector Embeddings</span>
+          <span class="stag">scikit-learn</span><span class="stag">XGBoost</span><span class="stag">GitHub Copilot</span><span class="stag">Python ML</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d2">
+        <div class="sgroup-hdr"><div class="sicon o">🏗️</div><div class="sname">Data Architecture</div></div>
+        <div class="stags">
+          <span class="stag hoto">Data Vault 2.0</span><span class="stag">Kimball Dimensional</span>
+          <span class="stag">MDM</span><span class="stag">Star Schema</span><span class="stag">Oracle</span>
+          <span class="stag">SQL Server</span><span class="stag">MongoDB</span><span class="stag">PostgreSQL</span>
+        </div>
+      </div>
+      <div class="sgroup reveal">
+        <div class="sgroup-hdr"><div class="sicon b">💻</div><div class="sname">Languages &amp; Tools</div></div>
+        <div class="stags">
+          <span class="stag hot">Python</span><span class="stag hot">SQL / PL-SQL</span>
+          <span class="stag">Shell Scripting</span><span class="stag">Node.js</span><span class="stag">T-SQL</span>
+          <span class="stag">Git / GitHub</span><span class="stag">JIRA</span><span class="stag">SharePoint</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d1">
+        <div class="sgroup-hdr"><div class="sicon o">📊</div><div class="sname">BI &amp; Visualisation</div></div>
+        <div class="stags">
+          <span class="stag hoto">Power BI</span><span class="stag">Oracle OAC</span>
+          <span class="stag">Oracle OAS</span><span class="stag">OBIEE</span>
+          <span class="stag">Tableau</span><span class="stag">QlikView</span><span class="stag">MicroStrategy</span>
+        </div>
+      </div>
+      <div class="sgroup reveal reveal-d2">
+        <div class="sgroup-hdr"><div class="sicon b">🔧</div><div class="sname">ETL &amp; Utilities</div></div>
+        <div class="stags">
+          <span class="stag">Talend</span><span class="stag">SAP BODS 4.2</span><span class="stag">ODI 12c</span>
+          <span class="stag">Azure Data Factory</span><span class="stag">Toad</span><span class="stag">SQL Developer</span>
+          <span class="stag">SSMS / SSDT</span><span class="stag">MobaXterm</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="skills-grid">
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">🧬</div><div class="sname">Dataiku DSS</div></div><div class="stags"><span class="stag hot">DSS Admin</span><span class="stag hot">Upgrades 12→14</span><span class="stag hot">LLM Mesh</span><span class="stag hot">GenAI Recipes</span><span class="stag">ML Lab</span><span class="stag">API Designer</span><span class="stag">Scenarios</span><span class="stag">Prompt Studio</span><span class="stag">Data Catalog</span><span class="stag">Python Recipes</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">⚡</div><div class="sname">Informatica</div></div><div class="stags"><span class="stag hot">IICS CDI</span><span class="stag hot">CDGC</span><span class="stag hot">MDM SaaS</span><span class="stag">CAI</span><span class="stag">Secure Agent</span><span class="stag">Snowflake PDO</span><span class="stag">Taskflows</span><span class="stag">PowerCenter 9x/10x</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">❄️</div><div class="sname">Snowflake</div></div><div class="stags"><span class="stag hot">SnowPro Certified</span><span class="stag">Streams & Tasks</span><span class="stag">Snowpipe</span><span class="stag">Data Sharing</span><span class="stag">Dynamic Masking</span><span class="stag">Snowpark</span><span class="stag">Zero-Copy Clone</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">☁️</div><div class="sname">Cloud Platforms</div></div><div class="stags"><span class="stag">Azure ADF</span><span class="stag">Azure Synapse</span><span class="stag">ADLS Gen2</span><span class="stag">Oracle OCI</span><span class="stag">Oracle ADB</span><span class="stag">GCP Concepts</span><span class="stag">AWS Concepts</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">🤖</div><div class="sname">AI / ML / GenAI</div></div><div class="stags"><span class="stag hot">OpenAI API</span><span class="stag hot">RAG Pipelines</span><span class="stag">LLM Guardrails</span><span class="stag">Vector Embeddings</span><span class="stag">scikit-learn</span><span class="stag">XGBoost</span><span class="stag">GitHub Copilot</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">🏗️</div><div class="sname">Data Architecture</div></div><div class="stags"><span class="stag hot">Data Vault 2.0</span><span class="stag">Kimball Dimensional</span><span class="stag">MDM</span><span class="stag">Star Schema</span><span class="stag">Oracle</span><span class="stag">SQL Server</span><span class="stag">MongoDB</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">💻</div><div class="sname">Languages</div></div><div class="stags"><span class="stag hot">Python</span><span class="stag hot">SQL / PL-SQL</span><span class="stag">Shell Script</span><span class="stag">Node.js</span><span class="stag">Batch</span><span class="stag">Git / GitHub</span></div></div>
-    <div class="sgroup reveal"><div class="sgroup-hdr"><div class="sicon">📊</div><div class="sname">BI & Visualisation</div></div><div class="stags"><span class="stag">Power BI</span><span class="stag">Oracle OAC</span><span class="stag">OBIEE</span><span class="stag">Tableau</span><span class="stag">QlikView</span><span class="stag">MicroStrategy</span></div></div>
-  </div>
-</section>
+</div>
+
+<div class="divider"></div>
 
 <!-- EXPERIENCE -->
-<section id="experience">
-  <div class="section-header reveal">
-    <span class="section-tag">// 03 — Experience</span>
-    <h2 class="section-title">Career<br>Timeline</h2>
-    <div class="section-line"></div>
+<div class="sec-white" id="experience">
+  <div class="inner">
+    <div class="sec-label blue">03 — Career Timeline</div>
+    <h2 class="sec-title"><span class="b">13+ Years</span> of Enterprise<br>Data Delivery</h2>
+    <div class="timeline">
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Aug 2021 — Present</div>
+        <div class="ttitle">Lead Data Engineer</div>
+        <div class="torg"><strong>MoHRE</strong> — Ministry of Human Resources &amp; Emiratisation · Dubai, UAE</div>
+        <ul class="tpoints">
+          <li>Leading Dataiku DSS platform and data engineering delivery for national-level data initiatives</li>
+          <li>Built Dynamic Risk Matrix (DRM) pipeline in Dataiku — consolidates 35+ business rules per company into a single risk score; migrated solution from Design to PROD instance</li>
+          <li>Built ISIC-4 economic classification pipeline using Dataiku + OpenAI — automated classification of 300K+ UAE companies, significantly reducing manual data steward effort</li>
+          <li>Led LMI 3.0 DWH migration: PowerCenter → Talend (Data Vault 2.0) with Amurta MDM for national entity resolution</li>
+          <li>Managed Informatica IICS CDI pipelines orchestrated with Dataiku Scenarios for end-to-end pipeline automation</li>
+        </ul>
+        <div class="ttech"><span>Dataiku DSS</span><span>Informatica IICS</span><span>OpenAI</span><span>Talend</span><span>Oracle SQL</span><span>Data Vault 2.0</span><span>Amurta MDM</span><span>Python</span></div>
+      </div>
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Nov 2020 — Aug 2021</div>
+        <div class="ttitle">BI Analyst / Senior DWH Consultant</div>
+        <div class="torg"><strong>ClearPeaks SL</strong> · Abu Dhabi, UAE</div>
+        <ul class="tpoints">
+          <li>CPC (Crown Prince Court): Designed and delivered Citizen's Affairs System from scratch — star schema design, ODI ETL/ELT, full project lifecycle from HLD to production deployment</li>
+          <li>ATC (US): FCC Data Pulls — ETL development and external table integration using ODI for federal data ingestion</li>
+          <li>ADNOC: Self-Service BI Platform — SAP EAM-aligned data marts, OLTP→OLAP transformation, Power BI reporting</li>
+          <li>ATC (US): OAS Flyability — geospatial data integration from government APIs via NodeJS + ODI; Oracle Spatial / SDO_GEOMETRY</li>
+          <li>ATC (US): Customer Equipment Associations — complex business rules translated into ODI objects for telecom DWH</li>
+        </ul>
+        <div class="ttech"><span>ODI 12c</span><span>Informatica PowerCenter</span><span>Oracle SQL</span><span>Power BI</span><span>SAP EAM</span><span>OAS</span><span>NodeJS</span><span>Azure DevOps</span></div>
+      </div>
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Dec 2019 — Nov 2020</div>
+        <div class="ttitle">Informatica Analyst</div>
+        <div class="torg"><strong>SEHA</strong> — Abu Dhabi Health Services · Abu Dhabi, UAE</div>
+        <ul class="tpoints">
+          <li>Integrated Cerner (clinical), Kronos (HR), and Oracle EBS (finance) into a unified governed hospital DWH</li>
+          <li>Built KPI ETL workflows and OBIEE/OAC dashboards for real-time hospital performance monitoring</li>
+          <li>Performance-tuned Informatica workflows — partitioning, pushdown optimisation to meet nightly SLAs on clinical data</li>
+        </ul>
+        <div class="ttech"><span>Informatica PowerCenter</span><span>Oracle SQL</span><span>OBIEE</span><span>OAC</span><span>Cerner</span><span>Kronos</span><span>Oracle EBS</span></div>
+      </div>
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Apr 2018 — Dec 2019</div>
+        <div class="ttitle">Lead Analyst</div>
+        <div class="torg"><strong>Priya Softweb Solution</strong> · Ahmedabad, India</div>
+        <ul class="tpoints">
+          <li>T-Mobile (US) NDW: Led offshore team for national data warehouse — IICS &amp; SAP BODS SME, full DWH conversion from PowerCenter to SAP BODS, SCD Type 1 &amp; 2 dimensional modelling</li>
+          <li>Managed IICS administration, ServiceNow REST API replication to MS SQL, Linux shell scripting automation</li>
+          <li>Resource management, team training on Informatica and SAP BODS, daily SCRUM with US stakeholders</li>
+        </ul>
+        <div class="ttech"><span>IICS</span><span>SAP BODS 4.2</span><span>Informatica PowerCenter 9.6</span><span>T-SQL</span><span>MongoDB</span><span>Python</span><span>Shell</span></div>
+      </div>
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Aug 2014 — Mar 2018</div>
+        <div class="ttitle">Consultant — OBIEE / ETL / DWH</div>
+        <div class="torg"><strong>Evosys</strong> (A Mastek Company) · Ahmedabad, India</div>
+        <ul class="tpoints">
+          <li>SEHA (UAE): Core Informatica specialist — all PowerCenter ETL design, mapping development, and admin. Integrated Cerner, Kronos, Oracle EBS. Delivered OBIEE KPI dashboards. Informatica upgrade 9.0→9.6 HF1 across DEV/UAT/PROD (team 20+)</li>
+          <li>King Khaled Eye Hospital (KSA): Onsite support in Riyadh — ODI mappings, OBIA HR/Finance/SCM, Hijri calendar implementation, OBIEE reports with user &amp; object-level security</li>
+        </ul>
+        <div class="ttech"><span>Informatica PowerCenter 9.x</span><span>Oracle SQL</span><span>OBIEE 11g</span><span>OAC</span><span>ODI 12c</span><span>Shell Scripting</span></div>
+      </div>
+
+      <div class="titem">
+        <div class="tdot"></div>
+        <div class="tdate">Apr 2013 — Aug 2014</div>
+        <div class="ttitle">System Analyst</div>
+        <div class="torg"><strong>Capital Novus</strong> (Knovos) · Gandhinagar, India</div>
+        <ul class="tpoints">
+          <li>Database development and data modelling for legal technology SaaS products</li>
+        </ul>
+        <div class="ttech"><span>SQL</span><span>Data Modelling</span></div>
+      </div>
+
+    </div>
   </div>
-  <div class="timeline">
+</div>
 
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Aug 2023 — Present</div>
-      <div class="ttitle">Senior Data Engineer</div>
-      <div class="torg">MoHRE — Ministry of Human Resources &amp; Emiratisation <span>· Dubai, UAE</span></div>
-      <ul class="tpoints">
-        <li>Sole Dataiku DSS Administrator — managed two production upgrades (12.x → 13.5 → 14.2.2) with zero downtime</li>
-        <li>Built ISIC-4 AI/ML classification pipeline (Dataiku + OpenAI) — 25% accuracy gain, 70% reduction in manual data steward effort</li>
-        <li>Orchestrated hybrid pipelines: IICS ingestion → DSS flow → ML scoring → Oracle write-back, automated via Scenarios</li>
-        <li>Led LMI 3.0 DWH migration: PowerCenter → Talend (Data Vault 2.0) with Amurta MDM for national entity resolution</li>
-      </ul>
-      <div class="ttech"><span>Dataiku DSS</span><span>Informatica IICS</span><span>OpenAI</span><span>Talend</span><span>Oracle SQL</span><span>Data Vault 2.0</span><span>Amurta MDM</span></div>
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<div class="sec-gray" id="projects">
+  <div class="inner">
+    <div class="sec-label orange">04 — Projects</div>
+    <h2 class="sec-title">Key Projects <span class="o">—</span><br><span class="b">Detailed</span> Delivery Record</h2>
+    <div class="projects-grid">
+
+      <!-- MoHRE -->
+      <div class="pcard pc-blue reveal">
+        <div class="pnum">01 · MoHRE</div>
+        <div class="pname">Dynamic Risk Matrix (DRM)</div>
+        <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
+        <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present · with PwC</div>
+        <p class="pdesc">Led Dataiku data pipelines for MoHRE's Dynamic Risk Matrix — the core company risk-scoring system. Consolidates 35+ applicable business rules per company into a single row representing that company's risk score. Migrated the full DRM solution from Design to PROD instance in Dataiku and built all data pipelines. PwC handled the data science layer; two-person data engineering team.</p>
+        <div class="presult">⚡ 35+ business rules consolidated per company into one risk score</div>
+        <div class="pstack"><span>Dataiku DSS</span><span>Python</span><span>Oracle SQL</span><span>Informatica IICS</span></div>
+      </div>
+
+      <div class="pcard pc-blue reveal reveal-d1">
+        <div class="pnum">02 · MoHRE</div>
+        <div class="pname">ISIC-4 Economic Activity Classification</div>
+        <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
+        <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present</div>
+        <p class="pdesc">Built an end-to-end AI/ML pipeline to predict the main economic activity (ISIC-4 codes) of 300K+ UAE companies. Designed Dataiku pipelines for data acquisition, preparation, feature engineering, model training, and deployment. Integrated OpenAI API for LLM-based classification. Built Informatica pipelines to feed and quality-assure training data. Significantly reduced manual data steward workload.</p>
+        <div class="presult">🏆 Automated classification of 300K+ companies · Steward effort significantly reduced</div>
+        <div class="pstack"><span>Dataiku DSS</span><span>Python 3.7</span><span>OpenAI API</span><span>Informatica IICS</span></div>
+      </div>
+
+      <div class="pcard pc-blue reveal reveal-d2">
+        <div class="pnum">03 · MoHRE</div>
+        <div class="pname">Labor Market Information 3.0</div>
+        <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
+        <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present</div>
+        <p class="pdesc">Led DWH migration from Informatica PowerCenter to Talend using Data Vault 2.0 methodology. Solely responsible for MDM design and implementation within Amurta — match rules, survivorship logic, and golden record publication. Spearheaded data governance initiatives, DQ profiling, stewardship training and workshops for a data-driven culture at national level.</p>
+        <div class="presult">🏗️ National DWH · Data Vault 2.0 · MDM golden records</div>
+        <div class="pstack"><span>Talend</span><span>Data Vault 2.0</span><span>Amurta MDM</span><span>Oracle SQL</span><span>Informatica PowerCenter 10x</span></div>
+      </div>
+
+      <!-- ClearPeaks -->
+      <div class="pcard pc-orange reveal">
+        <div class="pnum">04 · ClearPeaks → CPC</div>
+        <div class="pname">Citizen's Affairs System</div>
+        <div class="pclient">Client: Crown Prince Court (CPC) — Abu Dhabi, UAE</div>
+        <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
+        <p class="pdesc">Designed and developed key data foundations from scratch including star schema for analytical needs. Solely responsible for ETL/ELT strategies using ODI. Managed full project lifecycle — SRS, HLD, LLD, ETL guidelines. Installed and configured ODI 12x client tools, master and work repositories, and user access. Promoted ETL objects from development to production.</p>
+        <div class="presult">🏛️ Full project lifecycle · ODI install &amp; admin · Star schema from scratch</div>
+        <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>Oracle Warehouse Builder</span><span>Azure DevOps</span><span>OAS</span></div>
+      </div>
+
+      <div class="pcard pc-orange reveal reveal-d1">
+        <div class="pnum">05 · ClearPeaks → ATC</div>
+        <div class="pname">FCC Data Pulls Integration</div>
+        <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
+        <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
+        <p class="pdesc">Designed, developed, and maintained ETL processes using Oracle Data Integrator for FCC (Federal Communications Commission) federal data integration. Created external tables to efficiently load data from third-party government sources into the enterprise data warehouse.</p>
+        <div class="presult">📡 FCC federal data integration · External table architecture</div>
+        <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span></div>
+      </div>
+
+      <div class="pcard pc-orange reveal reveal-d2">
+        <div class="pnum">06 · ClearPeaks → ADNOC</div>
+        <div class="pname">Self-Service BI Platform</div>
+        <div class="pclient">Client: ADNOC — Abu Dhabi National Oil Company, UAE</div>
+        <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
+        <p class="pdesc">Developed and delivered self-service data marts for UAE's leading oil &amp; gas company. Worked extensively with SAP EAM module for maintenance data analysis. Led OLTP→OLAP transformation within the DWH. SQL optimisation using advanced analytical functions. UAT with business stakeholders, cross-training on data marts.</p>
+        <div class="presult">📊 Self-service data marts · OLTP→OLAP · SAP EAM analytics</div>
+        <div class="pstack"><span>Informatica PowerCenter 10x</span><span>SAP EAM</span><span>Oracle SQL</span><span>Power BI</span></div>
+      </div>
+
+      <div class="pcard pc-orange reveal">
+        <div class="pnum">07 · ClearPeaks → ATC</div>
+        <div class="pname">OAS Flyability</div>
+        <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
+        <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
+        <p class="pdesc">Led ETL development using ODI — defining strategies and best practices. Extracted and integrated sensitive geospatial data from government APIs using NodeJS and ODI automation. Addressed Oracle Spatial challenges including SDO_GEOMETRY string conversion. Enabled hourly data refreshes enhancing the DWH with new geospatial data.</p>
+        <div class="presult">🗺️ Geospatial DWH · SDO_GEOMETRY · Government API integration</div>
+        <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span><span>NodeJS</span><span>Oracle Spatial</span></div>
+      </div>
+
+      <div class="pcard pc-orange reveal reveal-d1">
+        <div class="pnum">08 · ClearPeaks → ATC</div>
+        <div class="pname">Customer Equipment Associations</div>
+        <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
+        <div class="pemployer">DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
+        <p class="pdesc">Key role in development, promotion, and testing of ETL processes using ODI. Translated complex functional and business rules into technical ODI objects — mappings, scenarios, and packages. Thorough ETL testing and validation with end business users. Enhanced DWH model for evolving business requirements.</p>
+        <div class="presult">📡 Business rules → ODI objects · End-user validated ETL</div>
+        <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span></div>
+      </div>
+
+      <!-- Priya Softweb -->
+      <div class="pcard pc-blue reveal">
+        <div class="pnum">09 · Priya Softweb → T-Mobile</div>
+        <div class="pname">National Data Warehouse (NDW)</div>
+        <div class="pclient">Client: T-Mobile — USA</div>
+        <div class="pemployer">Lead Analyst @ Priya Softweb Solution · Apr 2018–Dec 2019</div>
+        <p class="pdesc">Led offshore team for NDW with daily SCRUM calls with US stakeholders. Served as SME for IICS and SAP BODS. Led full DWH conversion from Informatica PowerCenter to SAP BODS — rewriting business logic and implementing SCD Type 1 &amp; 2 dimensional modelling. Managed IICS administration, ServiceNow REST API replication to MS SQL via Linux shell scripting. Earned client appreciation for deprecation of critical Informatica jobs.</p>
+        <div class="presult">🚀 Full DWH conversion · IICS Admin · Client appreciation award</div>
+        <div class="pstack"><span>IICS</span><span>SAP BODS 4.2</span><span>Informatica PC 9.6 HF2</span><span>T-SQL</span><span>Oracle SQL</span><span>MongoDB</span><span>Python</span><span>Shell</span></div>
+      </div>
+
+      <!-- Evosys -->
+      <div class="pcard pc-orange reveal reveal-d1">
+        <div class="pnum">10 · Evosys → King Khaled Hospital</div>
+        <div class="pname">OBIA Implementation — HR, Finance, SCM</div>
+        <div class="pclient">Client: King Khaled Eye Specialist Hospital — Riyadh, KSA</div>
+        <div class="pemployer">DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Mar 2018</div>
+        <p class="pdesc">Onsite support in Riyadh KSA — customised ODI mappings, monitored ETL processes, and implemented Hijri calendar for HR, Finance, and SCM modules. Developed OBIEE repositories, reports, and dashboards. Implemented user and object-level security. Delivered ongoing post-production support from offshore.</p>
+        <div class="presult">🏥 Onsite KSA · OBIA HR/Finance/SCM · Hijri calendar implementation</div>
+        <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OBIEE</span><span>OAS</span></div>
+      </div>
+
+      <div class="pcard pc-orange reveal reveal-d2">
+        <div class="pnum">11 · Evosys → SEHA</div>
+        <div class="pname">Healthcare Custom Analytics Projects</div>
+        <div class="pclient">Client: SEHA — Abu Dhabi Health Care Services, UAE</div>
+        <div class="pemployer">Sr. DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Mar 2018</div>
+        <p class="pdesc">Core Informatica Integration specialist in a 20+ team — responsible for all PowerCenter ETL design, mapping development, and admin. Analysed Cerner/Malafi, Kronos, Oracle EBS sources. Delivered healthcare, finance (P&amp;L, Balance Sheet), HR, and SCM KPI dashboards via OBIEE. Led Informatica upgrade 9.0→9.6 HF1 across DEV/UAT/PROD with minimal downtime.</p>
+        <div class="presult">🏥 20+ team · Informatica 9.0→9.6 upgrade · Multi-domain KPI dashboards</div>
+        <div class="pstack"><span>Informatica PowerCenter 9.1/9.6</span><span>Oracle SQL</span><span>OBIEE 11g</span><span>OAC</span><span>Shell Scripting</span><span>Cerner</span><span>Kronos</span></div>
+      </div>
+
     </div>
-
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Nov 2020 — Aug 2023</div>
-      <div class="ttitle">BI Analyst / Senior DWH Consultant</div>
-      <div class="torg">ClearPeaks SL <span>· Abu Dhabi, UAE</span></div>
-      <ul class="tpoints">
-        <li>ADNOC: Delivered self-service BI platform — SAP EAM-aligned data marts, OLTP→OLAP star schema, Power BI reporting</li>
-        <li>ATC (US): Engineered telecom equipment analytics using ODI 12c — complex ETL, business rules, OAS reporting layer</li>
-        <li>ATC (US): Integrated FCC federal data pulls and built OAS Flyability reporting for American Tower Corporation</li>
-        <li>Crown Prince Court (Abu Dhabi): Delivered Citizen's Affairs System — data integration and reporting layer</li>
-      </ul>
-      <div class="ttech"><span>Informatica PowerCenter</span><span>ODI 12c</span><span>Power BI</span><span>Oracle SQL</span><span>SAP EAM</span><span>OAS</span></div>
-    </div>
-
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Dec 2019 — Nov 2020</div>
-      <div class="ttitle">Informatica Analyst / DWH Consultant</div>
-      <div class="torg">SEHA — Abu Dhabi Health Services <span>· Abu Dhabi, UAE</span></div>
-      <ul class="tpoints">
-        <li>Integrated Cerner (clinical), Kronos (HR), and Oracle EBS (finance) into a unified governed hospital DWH</li>
-        <li>Built KPI dashboards via OBIEE/OAC enabling real-time hospital performance monitoring for senior leadership</li>
-        <li>Performance-tuned Informatica workflows — partitioning, pushdown optimisation to meet nightly SLAs on clinical data</li>
-      </ul>
-      <div class="ttech"><span>Informatica PowerCenter</span><span>OBIEE</span><span>Oracle SQL</span><span>OAC</span><span>Cerner</span><span>Kronos</span><span>Oracle EBS</span></div>
-    </div>
-
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Apr 2018 — Dec 2019</div>
-      <div class="ttitle">Lead Analyst</div>
-      <div class="torg">Priya Softweb Solution <span>· Ahmedabad, India</span></div>
-      <ul class="tpoints">
-        <li>Led ETL and DWH delivery for multiple enterprise clients across India and Middle East</li>
-        <li>Managed junior analyst team — design reviews, code reviews, and delivery ownership</li>
-      </ul>
-      <div class="ttech"><span>Informatica</span><span>Oracle SQL</span><span>OBIEE</span><span>ODI</span></div>
-    </div>
-
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Aug 2014 — Feb 2018</div>
-      <div class="ttitle">Consultant — OBIEE / ETL / DWH</div>
-      <div class="torg">Evosys (A Mastek Company) <span>· Ahmedabad, India</span></div>
-      <ul class="tpoints">
-        <li>T-Mobile (US): Delivered National Data Warehouse — complex ETL mappings, DWH schema, OBIEE reporting at national scale</li>
-        <li>Managed full SDLC across multiple Oracle DWH engagements — requirements through production handover</li>
-      </ul>
-      <div class="ttech"><span>Informatica PowerCenter</span><span>OBIEE</span><span>Oracle SQL</span><span>ODI</span></div>
-    </div>
-
-    <div class="titem">
-      <div class="tdot"></div>
-      <div class="tdate">Apr 2013 — Aug 2014</div>
-      <div class="ttitle">System Analyst</div>
-      <div class="torg">Capital Novus (Knovos) <span>· Gandhinagar, India</span></div>
-      <ul class="tpoints">
-        <li>Database development and data modelling for legal technology SaaS products</li>
-      </ul>
-      <div class="ttech"><span>SQL</span><span>Data Modelling</span></div>
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- PROJECTS — Cut to cut match with CV, correct employer shown -->
-<section id="projects">
-  <div class="section-header reveal">
-    <span class="section-tag">// 04 — Projects</span>
-    <h2 class="section-title">Key<br>Projects</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="projects-grid">
-
-    <!-- MoHRE projects -->
-    <div class="pcard reveal">
-      <div class="pnum">01 · MoHRE</div>
-      <div class="pname">ISIC-4 AI Company Classification</div>
-      <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
-      <div class="pemployer">Role: Senior Data Engineer @ MoHRE · Aug 2023–Present</div>
-      <p class="pdesc">End-to-end AI/ML pipeline classifying 300K+ UAE companies into ISIC-4 economic codes. Informatica IICS ingestion → Dataiku feature engineering → OpenAI GPT classification → Oracle write-back. First production AI pipeline at MoHRE.</p>
-      <div class="presult">🏆 25% accuracy gain · 70% manual effort reduction</div>
-      <div class="pstack"><span>Dataiku DSS</span><span>OpenAI API</span><span>Informatica IICS</span><span>Python</span><span>Oracle SQL</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">02 · MoHRE</div>
-      <div class="pname">Labor Market Information 3.0</div>
-      <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
-      <div class="pemployer">Role: Senior Data Engineer @ MoHRE · Aug 2023–Present</div>
-      <p class="pdesc">Migrated national labor market DWH from Informatica PowerCenter to Talend with Data Vault 2.0 methodology. Implemented Amurta MDM for employer entity resolution across government departments. Established DQ governance standards.</p>
-      <div class="presult">🏗️ National-scale DWH · Full data governance framework</div>
-      <div class="pstack"><span>Talend</span><span>Data Vault 2.0</span><span>Amurta MDM</span><span>Oracle SQL</span><span>Informatica</span></div>
-    </div>
-
-    <!-- ClearPeaks projects — exact from CV -->
-    <div class="pcard reveal">
-      <div class="pnum">03 · ClearPeaks → CPC</div>
-      <div class="pname">Citizen's Affairs System</div>
-      <div class="pclient">Client: Crown Prince Court (CPC) — Abu Dhabi, UAE</div>
-      <div class="pemployer">Role: Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2023</div>
-      <p class="pdesc">Designed and developed key data foundations from scratch including star schema for analytical needs. Solely responsible for ETL/ELT strategies using ODI to populate data from various sources. Managed full project lifecycle — analysis, HLD, LLD, ETL guidelines, ODI 12x installation, master & work repository setup, and deployment to production.</p>
-      <div class="presult">🏛️ Full project lifecycle · ODI Admin · Star schema from scratch</div>
-      <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>Oracle Warehouse Builder</span><span>Azure DevOps</span><span>OAS</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">04 · ClearPeaks → ATC</div>
-      <div class="pname">Integrate FCC Data Pulls</div>
-      <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
-      <div class="pemployer">Role: Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2023</div>
-      <p class="pdesc">Designed, developed, and maintained data extraction and ETL processes using Oracle Data Integrator (ODI). Created external tables to efficiently load data from FCC (Federal Communications Commission) third-party sources into the data warehouse.</p>
-      <div class="presult">📡 FCC federal data integration · External table architecture</div>
-      <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">05 · ClearPeaks → ADNOC</div>
-      <div class="pname">Self-Service BI Platform</div>
-      <div class="pclient">Client: ADNOC — Abu Dhabi National Oil Company, UAE</div>
-      <div class="pemployer">Role: Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2023</div>
-      <p class="pdesc">Developed and delivered self-service data marts for a leading oil & gas company. Worked extensively with SAP EAM module for maintenance data analysis. Transformed OLTP operational data into OLAP layers for in-depth analysis of key business metrics. Led UAT with business stakeholders and SQL optimization using advanced analytical functions.</p>
-      <div class="presult">📊 Self-service data marts · OLTP→OLAP · SAP EAM analytics</div>
-      <div class="pstack"><span>Informatica PowerCenter 10x</span><span>SAP EAM</span><span>Oracle SQL</span><span>Power BI</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">06 · ClearPeaks → ATC</div>
-      <div class="pname">OAS Flyability</div>
-      <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
-      <div class="pemployer">Role: Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2023</div>
-      <p class="pdesc">Led ETL development using ODI defining strategies and best practices. Extracted and integrated sensitive geospatial data from government APIs using NodeJS and ODI automation. Addressed Oracle Spatial challenges including SDO_GEOMETRY conversion. Enabled hourly data refreshes enhancing the DWH model with new geospatial data.</p>
-      <div class="presult">🗺️ Geospatial DWH · SDO_GEOMETRY · Govt API integration</div>
-      <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span><span>NodeJS</span><span>Oracle Spatial</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">07 · ClearPeaks → ATC</div>
-      <div class="pname">Customer Equipment Associations</div>
-      <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
-      <div class="pemployer">Role: DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2023</div>
-      <p class="pdesc">Key role in ETL development, promotion, and testing using ODI. Translated complex functional and business rules into technical ODI objects — mappings, scenarios, and packages. Conducted thorough ETL testing and validation with end business users and enhanced DWH model for evolving business needs.</p>
-      <div class="presult">📡 Business rules → ODI objects · ETL validation with end users</div>
-      <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OAS</span></div>
-    </div>
-
-    <!-- Priya Softweb project — T-Mobile is Priya Softweb NOT Evosys -->
-    <div class="pcard reveal">
-      <div class="pnum">08 · Priya Softweb → T-Mobile</div>
-      <div class="pname">National Data Warehouse (NDW)</div>
-      <div class="pclient">Client: T-Mobile — USA</div>
-      <div class="pemployer">Role: Lead Analyst @ Priya Softweb Solution · Apr 2018–Dec 2019</div>
-      <p class="pdesc">Led offshore team for NDW project with daily SCRUM calls with US stakeholders. Served as SME for IICS and SAP BODS. Led full DWH conversion from Informatica PowerCenter to SAP BODS — rewriting business logic and implementing SCD Type 1 & 2 dimensional modelling. Managed IICS administration and ServiceNow REST API replication to MS SQL via shell scripting.</p>
-      <div class="presult">🚀 Full DWH conversion · IICS Admin · Client appreciation for delivery</div>
-      <div class="pstack"><span>IICS</span><span>SAP BODS 4.2</span><span>Informatica PowerCenter 9.6</span><span>T-SQL</span><span>Oracle SQL</span><span>MongoDB</span><span>Python</span><span>Shell</span></div>
-    </div>
-
-    <!-- Evosys projects -->
-    <div class="pcard reveal">
-      <div class="pnum">09 · Evosys → King Khaled Hospital</div>
-      <div class="pname">OBIA Implementation — HR, Finance, SCM</div>
-      <div class="pclient">Client: King Khaled Eye Specialist Hospital — Riyadh, KSA</div>
-      <div class="pemployer">Role: DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Feb 2018</div>
-      <p class="pdesc">Provided onsite support in Riyadh KSA — customised ODI mappings, monitored ETL processes, and implemented Hijri calendar for HR, Finance, and SCM modules. Developed OBIEE repositories, reports, and dashboards with user and object-level security. Delivered post go-live support from offshore.</p>
-      <div class="presult">🏥 Onsite KSA delivery · OBIA HR/Finance/SCM · Hijri calendar</div>
-      <div class="pstack"><span>ODI 12.2.1.4</span><span>Oracle SQL</span><span>OBIEE</span><span>OAS</span></div>
-    </div>
-
-    <div class="pcard reveal">
-      <div class="pnum">10 · Evosys → SEHA</div>
-      <div class="pname">Healthcare Custom Analytics Projects</div>
-      <div class="pclient">Client: SEHA — Abu Dhabi Health Care Services, UAE</div>
-      <div class="pemployer">Role: Sr. DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Feb 2018</div>
-      <p class="pdesc">Core Informatica Integration specialist — responsible for all PowerCenter ETL design, mapping development, and admin activities. Analysed Cerner/Malafi, Kronos, Oracle EBS source systems. Delivered healthcare, finance (P&L, Balance Sheet), HR, and SCM KPI dashboards via OBIEE. Led Informatica upgrade from 9.0 to 9.6 HF1 across DEV, UAT & PROD with minimal downtime. Team of 20+.</p>
-      <div class="presult">🏥 20+ team · Informatica 9.0→9.6 upgrade · KPI dashboards</div>
-      <div class="pstack"><span>Informatica PowerCenter 9.1/9.6</span><span>Oracle SQL</span><span>OBIEE 11g</span><span>OAC</span><span>Shell Scripting</span><span>Cerner</span><span>Kronos</span></div>
-    </div>
-
-  </div>
-</section>
+<div class="divider"></div>
 
 <!-- CERTIFICATIONS -->
-<section id="certifications">
-  <div class="section-header reveal">
-    <span class="section-tag">// 05 — Credentials</span>
-    <h2 class="section-title">Certifications<br>&amp; Education</h2>
-    <div class="section-line"></div>
+<div class="sec-white" id="certifications">
+  <div class="inner">
+    <div class="sec-label blue">05 — Credentials</div>
+    <h2 class="sec-title">Certifications<br>&amp; <span class="b">Education</span></h2>
+    <div class="cert-grid">
+      <div class="ccard reveal"><div class="cbadge">❄️</div><div class="cinfo"><h4>SnowPro Core Certification</h4><p>Snowflake</p><span class="ctag p">Proctored</span></div></div>
+      <div class="ccard reveal reveal-d1"><div class="cbadge">☁️</div><div class="cinfo"><h4>OCI Architect Associate</h4><p>Oracle Cloud Infrastructure</p><span class="ctag p">Proctored</span></div></div>
+      <div class="ccard reveal reveal-d2"><div class="cbadge">🗄️</div><div class="cinfo"><h4>Autonomous Database 2021 Specialist</h4><p>Oracle Cloud</p><span class="ctag p">Proctored</span></div></div>
+      <div class="ccard reveal"><div class="cbadge">📊</div><div class="cinfo"><h4>BI Cloud Service Specialist</h4><p>Oracle Cloud</p><span class="ctag p">Proctored</span></div></div>
+      <div class="ccard reveal reveal-d1"><div class="cbadge">🧬</div><div class="cinfo"><h4>Core Designer + Advanced Designer</h4><p>Dataiku DSS</p><span class="ctag v">Certified</span></div></div>
+      <div class="ccard reveal reveal-d2"><div class="cbadge">⚡</div><div class="cinfo"><h4>CDGC Foundation</h4><p>Informatica Cloud Governance &amp; Catalog</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal"><div class="cbadge">⚡</div><div class="cinfo"><h4>Cloud Data Integration for PowerCenter Devs</h4><p>Informatica IICS</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal reveal-d1"><div class="cbadge">🔷</div><div class="cinfo"><h4>MDM Implementation + MDM SaaS</h4><p>Informatica MDM</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal reveal-d2"><div class="cbadge">🔷</div><div class="cinfo"><h4>DW &amp; Data Lake Modernisation · App Modernisation · Governance &amp; Privacy</h4><p>Informatica</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal"><div class="cbadge">❄️</div><div class="cinfo"><h4>Hands-on Essentials — 5 Tracks</h4><p>Snowflake: DWH · Data Lake · Engineering · Sharing · Apps</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal reveal-d1"><div class="cbadge">🔗</div><div class="cinfo"><h4>Talend Data Fabric Explorer</h4><p>Talend-Qlik</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal reveal-d2"><div class="cbadge">🎓</div><div class="cinfo"><h4>MCA — Master of Computer Applications</h4><p>Gujarat Technological University · 2012 · CGPA 7.10 · Full Time</p><span class="ctag p">Degree</span></div></div>
+    </div>
   </div>
-  <div class="cert-grid">
-    <div class="ccard reveal"><div class="cbadge">❄️</div><div class="cinfo"><h4>SnowPro Core Certification</h4><p>Snowflake</p><span class="ctype proctored">Proctored</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">☁️</div><div class="cinfo"><h4>OCI Architect Associate</h4><p>Oracle Cloud Infrastructure</p><span class="ctype proctored">Proctored</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">🗄️</div><div class="cinfo"><h4>Autonomous Database Specialist</h4><p>Oracle Cloud</p><span class="ctype proctored">Proctored</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">📊</div><div class="cinfo"><h4>BI Cloud Service Specialist</h4><p>Oracle Cloud</p><span class="ctype proctored">Proctored</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">🧬</div><div class="cinfo"><h4>Dataiku Core Designer</h4><p>Dataiku DSS</p><span class="ctype verified">Certified</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">⚡</div><div class="cinfo"><h4>CDGC Foundation + CDI</h4><p>Informatica Cloud</p><span class="ctype verified">Verified</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">🔷</div><div class="cinfo"><h4>MDM SaaS + Governance &amp; Privacy</h4><p>Informatica</p><span class="ctype verified">Verified</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">❄️</div><div class="cinfo"><h4>Hands-on Essentials (5 tracks)</h4><p>Snowflake — DWH, Data Lake, Engineering, Sharing, Apps</p><span class="ctype verified">Verified</span></div></div>
-    <div class="ccard reveal"><div class="cbadge">🎓</div><div class="cinfo"><h4>MCA — Master of Computer Applications</h4><p>Gujarat Technological University · 2012 · CGPA 7.10</p><span class="ctype verified">Full-Time</span></div></div>
-  </div>
-</section>
+</div>
+
+<div class="divider"></div>
 
 <!-- CONTACT -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="section-header reveal" style="text-align:center">
-      <span class="section-tag" style="display:block">// 06 — Contact</span>
-      <h2 class="section-title">Let's Build<br>Something Great</h2>
-      <div class="section-line"></div>
-    </div>
-    <p class="reveal">Open to Senior / Lead Data Engineer roles across UAE &amp; GCC. Dataiku platforms, AI pipelines, enterprise DWH — let's connect.</p>
-    <div class="clinks reveal">
-      <a href="mailto:darshanprajapati@ymail.com" class="clink">✉ darshanprajapati@ymail.com</a>
-      <!--<a href="tel:+971508839297" class="clink">📱 +971 508839297</a>-->
-      <a href="https://www.linkedin.com/in/darshan30589/" target="_blank" class="clink">in LinkedIn</a>
-    </div>
-    <div class="cform reveal">
-      <div class="frow">
-        <div class="fg"><label>Your Name</label><input type="text" placeholder="Darshankumar Prajapti"></div>
-        <div class="fg"><label>Your Email</label><input type="email" placeholder="dp@abc.com"></div>
+<div class="sec-gray" id="contact">
+  <div class="inner">
+    <div class="contact-inner">
+      <div class="sec-label orange" style="justify-content:center;display:flex">06 — Contact</div>
+      <h2 class="sec-title" style="margin-bottom:16px">Let's <span class="o">Build</span><br>Something <span class="b">Great</span></h2>
+      <p class="contact-intro reveal">Open to Senior / Lead Data Engineer and AI/ML Pipeline roles across UAE &amp; GCC. Dataiku platforms, enterprise DWH, AI pipelines — let's connect.</p>
+      <div class="clinks reveal">
+        <a href="mailto:darshanprajapati@ymail.com" class="clink"><span class="clink-icon">✉</span> darshanprajapati@ymail.com</a>
+        <a href="tel:+971508839297" class="clink"><span class="clink-icon">📱</span> +971 508839297</a>
+        <a href="https://www.linkedin.com/in/darshan30589/" target="_blank" class="clink"><span class="clink-icon">in</span> LinkedIn</a>
       </div>
-      <div class="fg"><label>Subject</label><input type="text" placeholder="Job opportunity / Collaboration / Project"></div>
-      <div class="fg"><label>Message</label><textarea placeholder="Tell me about the role or project..."></textarea></div>
-      <button class="bsub" onclick="handleForm(event)">⟶ Send Message</button>
-      <p class="fnote">// Faster response via LinkedIn or direct email</p>
+      <div class="cform reveal">
+        <div class="frow">
+          <div class="fg"><label>Your Name</label><input type="text" placeholder="John Smith"></div>
+          <div class="fg"><label>Your Email</label><input type="email" placeholder="john@company.com"></div>
+        </div>
+        <div class="fg"><label>Subject</label><input type="text" placeholder="Job opportunity / Collaboration / Project"></div>
+        <div class="fg"><label>Message</label><textarea placeholder="Tell me about the role or project..."></textarea></div>
+        <button class="bsub" onclick="handleForm(event)">Send Message →</button>
+        <p class="fnote">Faster response via LinkedIn or direct email</p>
+      </div>
     </div>
   </div>
-</section>
+</div>
 
+<!-- FOOTER -->
 <footer>
-  <div class="fleft">Darshankumar Prajapati · Dubai, UAE · <a href="https://www.linkedin.com/in/darshan30589/" target="_blank" style="color:var(--cyan);text-decoration:none">LinkedIn</a></div>
-  <div class="fright">© 2025 · Hosted on GitHub Pages · Built with purpose</div>
+  <div class="fl"><strong>Darshankumar Prajapati</strong> &nbsp;·&nbsp; Lead Data Engineer &nbsp;·&nbsp; Dubai, UAE</div>
+  <div class="fr">
+    <a href="https://www.linkedin.com/in/darshan30589/" target="_blank">LinkedIn</a>
+    <a href="mailto:darshanprajapati@ymail.com">Email</a>
+    <a href="#hero">Back to Top ↑</a>
+  </div>
 </footer>
 
 <script>
-// Scroll reveal
+// Intersection observer — reveal on scroll
 const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible')}});
 },{threshold:.1});
 document.querySelectorAll('.reveal,.titem').forEach(el=>obs.observe(el));
 document.querySelectorAll('.titem').forEach((el,i)=>el.style.transitionDelay=(i*.07)+'s');
 
-// Nav highlight
+// Nav active link
+const sections = document.querySelectorAll('div[id],section[id]');
 window.addEventListener('scroll',()=>{
   let cur='';
-  document.querySelectorAll('section[id]').forEach(s=>{if(scrollY>=s.offsetTop-130)cur=s.id});
+  sections.forEach(s=>{if(scrollY>=s.offsetTop-100)cur=s.id});
   document.querySelectorAll('.nav-links a').forEach(a=>{
-    a.style.color=a.getAttribute('href')==='#'+cur?'var(--cyan)':'';
+    const isActive = a.getAttribute('href')==='#'+cur;
+    a.classList.toggle('active',isActive);
   });
 });
 
-// Form
+// Form handler
 function handleForm(e){
-  e.preventDefault();
-  const b=e.target;
+  e.preventDefault();const b=e.target;
   b.textContent='✓ Message Sent!';
-  b.style.background='linear-gradient(135deg,#1B5E20,#2E7D32)';
-  setTimeout(()=>{b.textContent='⟶ Send Message';b.style.background=''},3000);
+  b.style.background='#1460A3';
+  setTimeout(()=>{b.textContent='Send Message →';b.style.background=''},3000);
 }
 </script>
 </body>
