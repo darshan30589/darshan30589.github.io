@@ -203,11 +203,12 @@ h1.hero-name .accent::after{
   z-index:-1;
 }
 .photo-badge{
-  position:absolute;top:-14px;left:-20px;
-  background:var(--white);border:2px solid var(--border);
-  border-radius:10px;padding:10px 14px;
-  box-shadow:0 8px 24px var(--shadow);
-  white-space:nowrap;
+  display:flex;align-items:center;gap:10px;
+  margin-top:14px;
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:10px;padding:10px 16px;
+  box-shadow:0 4px 14px var(--shadow);
+  white-space:nowrap;width:fit-content;
 }
 .photo-badge-num{font-size:20px;font-weight:900;color:var(--blue);line-height:1}
 .photo-badge-txt{font-size:10px;color:var(--muted);font-weight:700;letter-spacing:.06em;text-transform:uppercase}
@@ -369,6 +370,20 @@ h1.hero-name .accent::after{
   background:var(--bg);color:var(--mid);border:1px solid var(--border);
 }
 
+/* ══ DOMAIN BADGES ═══════════════════════════════════════════════ */
+.pdomain{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 11px;border-radius:20px;
+  font-size:10.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.pdomain::before{content:'◆';font-size:7px}
+.pd-gov{background:#E8F1FC;color:#1460A3;border:1px solid #BDD3F0}
+.pd-health{background:#E7F7EE;color:#1A7A46;border:1px solid #A8DEBB}
+.pd-energy{background:#FFF4E0;color:#A05C00;border:1px solid #FBCF7A}
+.pd-telecom{background:#F0EDFE;color:#5332B5;border:1px solid #CEC3F6}
+.pd-aiml{background:var(--orange-p);color:var(--orange);border:1px solid #F9C8A8}
+
 /* ══ CERTIFICATIONS ══════════════════════════════════════════════ */
 .cert-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .ccard{
@@ -434,6 +449,38 @@ h1.hero-name .accent::after{
 }
 .bsub:hover{background:var(--orange-l);transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,96,26,.35)}
 .fnote{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ══ AWARDS BLOCK ════════════════════════════════════════════════ */
+.awards-block{
+  margin-top:16px;
+  background:linear-gradient(135deg,#FFFBF0 0%,#FFF7E0 100%);
+  border:1.5px solid #F0C84A;
+  border-left:4px solid #D4A017;
+  border-radius:0 10px 10px 0;
+  padding:16px 18px;
+}
+.awards-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+  color:#8A6500;margin-bottom:12px;
+}
+.awards-title::before{content:'🏆';font-size:14px}
+.awards-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.award-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;background:#fff;
+  border:1.5px solid #E8C84A;border-radius:6px;
+  font-size:12.5px;font-weight:700;color:#6B4E00;line-height:1.3;
+}
+.award-pill .aw-icon{font-size:14px;flex-shrink:0}
+.award-pill .aw-place{
+  font-size:10px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  color:#D4A017;display:block;
+}
+.award-note{
+  font-size:12px;color:#8A6500;font-style:italic;line-height:1.6;
+  border-top:1px solid #F0D878;padding-top:8px;margin-top:4px;
+}
 
 /* ══ FOOTER ══════════════════════════════════════════════════════ */
 footer{
@@ -520,19 +567,19 @@ footer{
     </div>
     <div class="hero-photo">
       <div style="position:relative">
-        <div class="photo-badge">
-          <div class="photo-badge-num">13+</div>
-          <div class="photo-badge-txt">Years Exp.</div>
-        </div>
         <div class="photo-frame">
-          <img src="photo.jpg" alt="Darshankumar Prajapati"
+          <img src="photo.jpeg" alt="Darshankumar Prajapati"
                onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="photo-placeholder" style="display:none">
             <div class="pi">DP</div>
-            <p>Upload photo.jpg<br>to your GitHub repo</p>
+            <p>Upload photo.jpeg<br>to your GitHub repo</p>
           </div>
         </div>
         <div class="photo-accent"></div>
+      </div>
+      <div class="photo-badge">
+        <div class="photo-badge-num">13+</div>
+        <div class="photo-badge-txt">Years Exp.</div>
       </div>
     </div>
   </div>
@@ -581,7 +628,7 @@ footer{
       <div class="sgroup reveal reveal-d1">
         <div class="sgroup-hdr"><div class="sicon o">⚡</div><div class="sname">Informatica</div></div>
         <div class="stags">
-          <span class="stag hoto">IICS CDI</span><span class="stag hoto">CDGC</span><span class="stag hoto">MDM SaaS</span>
+          <span class="stag hoto">IDMC (IICS)</span><span class="stag hoto">CDI</span><span class="stag hoto">CDGC</span><span class="stag hoto">MDM SaaS</span>
           <span class="stag">CAI</span><span class="stag">Mass Ingestion</span><span class="stag">Secure Agent</span>
           <span class="stag">Snowflake PDO</span><span class="stag">Taskflows</span><span class="stag">PowerCenter 9x/10x</span>
         </div>
@@ -669,6 +716,17 @@ footer{
           <li>Managed Informatica IICS CDI pipelines orchestrated with Dataiku Scenarios for end-to-end pipeline automation</li>
         </ul>
         <div class="ttech"><span>Dataiku DSS</span><span>Informatica IICS</span><span>OpenAI</span><span>Talend</span><span>Oracle SQL</span><span>Data Vault 2.0</span><span>Amurta MDM</span><span>Python</span></div>
+
+        <div class="awards-block">
+          <div class="awards-title">MoHRE Institutional Excellence Awards</div>
+          <div class="awards-grid">
+            <div class="award-pill"><span class="aw-icon">🥇</span><div><span class="aw-place">1st Place</span>Distinguished Organizational Unit</div></div>
+            <div class="award-pill"><span class="aw-icon">🏅</span><div><span class="aw-place">Winner</span>Best in Transformational Thinking</div></div>
+            <div class="award-pill"><span class="aw-icon">🏅</span><div><span class="aw-place">Winner</span>Best in Data &amp; Knowledge Management</div></div>
+            <div class="award-pill"><span class="aw-icon">🏅</span><div><span class="aw-place">Winner</span>Artificial Intelligence Systems Team</div></div>
+          </div>
+          <div class="award-note">Part of the MoHRE Data &amp; AI team honoured across 4 categories · Consecutive recognition in the UAE Data Maturity Index 2025</div>
+        </div>
       </div>
 
       <div class="titem">
@@ -751,6 +809,7 @@ footer{
       <!-- MoHRE -->
       <div class="pcard pc-blue reveal">
         <div class="pnum">01 · MoHRE</div>
+        <div class="pdomain pd-gov">Government / Public Sector</div>
         <div class="pname">Dynamic Risk Matrix (DRM)</div>
         <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
         <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present · with PwC</div>
@@ -761,6 +820,7 @@ footer{
 
       <div class="pcard pc-blue reveal reveal-d1">
         <div class="pnum">02 · MoHRE</div>
+        <div class="pdomain pd-aiml">Government · AI / ML</div>
         <div class="pname">ISIC-4 Economic Activity Classification</div>
         <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
         <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present</div>
@@ -771,6 +831,7 @@ footer{
 
       <div class="pcard pc-blue reveal reveal-d2">
         <div class="pnum">03 · MoHRE</div>
+        <div class="pdomain pd-gov">Government / Public Sector</div>
         <div class="pname">Labor Market Information 3.0</div>
         <div class="pclient">Client: MoHRE — UAE Ministry of Human Resources</div>
         <div class="pemployer">Lead Data Engineer @ MoHRE · Aug 2021–Present</div>
@@ -782,6 +843,7 @@ footer{
       <!-- ClearPeaks -->
       <div class="pcard pc-orange reveal">
         <div class="pnum">04 · ClearPeaks → CPC</div>
+        <div class="pdomain pd-gov">Government / Public Sector</div>
         <div class="pname">Citizen's Affairs System</div>
         <div class="pclient">Client: Crown Prince Court (CPC) — Abu Dhabi, UAE</div>
         <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
@@ -792,6 +854,7 @@ footer{
 
       <div class="pcard pc-orange reveal reveal-d1">
         <div class="pnum">05 · ClearPeaks → ATC</div>
+        <div class="pdomain pd-telecom">Telecommunications</div>
         <div class="pname">FCC Data Pulls Integration</div>
         <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
         <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
@@ -802,6 +865,7 @@ footer{
 
       <div class="pcard pc-orange reveal reveal-d2">
         <div class="pnum">06 · ClearPeaks → ADNOC</div>
+        <div class="pdomain pd-energy">Energy / Oil &amp; Gas</div>
         <div class="pname">Self-Service BI Platform</div>
         <div class="pclient">Client: ADNOC — Abu Dhabi National Oil Company, UAE</div>
         <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
@@ -812,6 +876,7 @@ footer{
 
       <div class="pcard pc-orange reveal">
         <div class="pnum">07 · ClearPeaks → ATC</div>
+        <div class="pdomain pd-telecom">Telecommunications</div>
         <div class="pname">OAS Flyability</div>
         <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
         <div class="pemployer">Sr. DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
@@ -822,6 +887,7 @@ footer{
 
       <div class="pcard pc-orange reveal reveal-d1">
         <div class="pnum">08 · ClearPeaks → ATC</div>
+        <div class="pdomain pd-telecom">Telecommunications</div>
         <div class="pname">Customer Equipment Associations</div>
         <div class="pclient">Client: ATC — American Tower Corporation, USA</div>
         <div class="pemployer">DWH Consultant @ ClearPeaks SL · Nov 2020–Aug 2021</div>
@@ -833,6 +899,7 @@ footer{
       <!-- Priya Softweb -->
       <div class="pcard pc-blue reveal">
         <div class="pnum">09 · Priya Softweb → T-Mobile</div>
+        <div class="pdomain pd-telecom">Telecommunications</div>
         <div class="pname">National Data Warehouse (NDW)</div>
         <div class="pclient">Client: T-Mobile — USA</div>
         <div class="pemployer">Lead Analyst @ Priya Softweb Solution · Apr 2018–Dec 2019</div>
@@ -844,6 +911,7 @@ footer{
       <!-- Evosys -->
       <div class="pcard pc-orange reveal reveal-d1">
         <div class="pnum">10 · Evosys → King Khaled Hospital</div>
+        <div class="pdomain pd-health">Healthcare</div>
         <div class="pname">OBIA Implementation — HR, Finance, SCM</div>
         <div class="pclient">Client: King Khaled Eye Specialist Hospital — Riyadh, KSA</div>
         <div class="pemployer">DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Mar 2018</div>
@@ -854,6 +922,7 @@ footer{
 
       <div class="pcard pc-orange reveal reveal-d2">
         <div class="pnum">11 · Evosys → SEHA</div>
+        <div class="pdomain pd-health">Healthcare</div>
         <div class="pname">Healthcare Custom Analytics Projects</div>
         <div class="pclient">Client: SEHA — Abu Dhabi Health Care Services, UAE</div>
         <div class="pemployer">Sr. DWH/BI Consultant @ Evosys (Mastek) · Aug 2014–Mar 2018</div>
@@ -878,6 +947,7 @@ footer{
       <div class="ccard reveal reveal-d1"><div class="cbadge">☁️</div><div class="cinfo"><h4>OCI Architect Associate</h4><p>Oracle Cloud Infrastructure</p><span class="ctag p">Proctored</span></div></div>
       <div class="ccard reveal reveal-d2"><div class="cbadge">🗄️</div><div class="cinfo"><h4>Autonomous Database 2021 Specialist</h4><p>Oracle Cloud</p><span class="ctag p">Proctored</span></div></div>
       <div class="ccard reveal"><div class="cbadge">📊</div><div class="cinfo"><h4>BI Cloud Service Specialist</h4><p>Oracle Cloud</p><span class="ctag p">Proctored</span></div></div>
+      <div class="ccard reveal reveal-d1"><div class="cbadge">🤖</div><div class="cinfo"><h4>Claude Code in Action</h4><p>Anthropic · Skilljar Verified</p><span class="ctag v">Certified</span></div></div>
       <div class="ccard reveal reveal-d1"><div class="cbadge">🧬</div><div class="cinfo"><h4>Core Designer + Advanced Designer</h4><p>Dataiku DSS</p><span class="ctag v">Certified</span></div></div>
       <div class="ccard reveal reveal-d2"><div class="cbadge">⚡</div><div class="cinfo"><h4>CDGC Foundation</h4><p>Informatica Cloud Governance &amp; Catalog</p><span class="ctag v">Verified</span></div></div>
       <div class="ccard reveal"><div class="cbadge">⚡</div><div class="cinfo"><h4>Cloud Data Integration for PowerCenter Devs</h4><p>Informatica IICS</p><span class="ctag v">Verified</span></div></div>
@@ -885,6 +955,8 @@ footer{
       <div class="ccard reveal reveal-d2"><div class="cbadge">🔷</div><div class="cinfo"><h4>DW &amp; Data Lake Modernisation · App Modernisation · Governance &amp; Privacy</h4><p>Informatica</p><span class="ctag v">Verified</span></div></div>
       <div class="ccard reveal"><div class="cbadge">❄️</div><div class="cinfo"><h4>Hands-on Essentials — 5 Tracks</h4><p>Snowflake: DWH · Data Lake · Engineering · Sharing · Apps</p><span class="ctag v">Verified</span></div></div>
       <div class="ccard reveal reveal-d1"><div class="cbadge">🔗</div><div class="cinfo"><h4>Talend Data Fabric Explorer</h4><p>Talend-Qlik</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal reveal-d2"><div class="cbadge">🔗</div><div class="cinfo"><h4>Digging Deep into Database</h4><p>Talend-Qlik</p><span class="ctag v">Verified</span></div></div>
+      <div class="ccard reveal"><div class="cbadge">🔗</div><div class="cinfo"><h4>Back It Up with Data</h4><p>Talend-Qlik</p><span class="ctag v">Verified</span></div></div>
       <div class="ccard reveal reveal-d2"><div class="cbadge">🎓</div><div class="cinfo"><h4>MCA — Master of Computer Applications</h4><p>Gujarat Technological University · 2012 · CGPA 7.10 · Full Time</p><span class="ctag p">Degree</span></div></div>
     </div>
   </div>
@@ -901,7 +973,6 @@ footer{
       <p class="contact-intro reveal">Open to Senior / Lead Data Engineer and AI/ML Pipeline roles across UAE &amp; GCC. Dataiku platforms, enterprise DWH, AI pipelines — let's connect.</p>
       <div class="clinks reveal">
         <a href="mailto:darshanprajapati@ymail.com" class="clink"><span class="clink-icon">✉</span> darshanprajapati@ymail.com</a>
-        <a href="tel:+971508839297" class="clink"><span class="clink-icon">📱</span> +971 508839297</a>
         <a href="https://www.linkedin.com/in/darshan30589/" target="_blank" class="clink"><span class="clink-icon">in</span> LinkedIn</a>
       </div>
       <div class="cform reveal">
