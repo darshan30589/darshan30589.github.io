@@ -482,6 +482,36 @@ h1.hero-name .accent::after{
   border-top:1px solid #F0D878;padding-top:8px;margin-top:4px;
 }
 
+/* ══ INTELLECTUAL PROPERTY BLOCK ═════════════════════════════════ */
+.ip-block{
+  margin-top:16px;position:relative;
+  background:linear-gradient(135deg,var(--blue-p) 0%,#F3F8FE 62%,var(--orange-p) 150%);
+  border:1.5px solid rgba(20,96,163,.28);
+  border-left:4px solid var(--blue);
+  border-radius:0 12px 12px 0;
+  padding:18px 20px;
+  box-shadow:0 8px 28px var(--shadow);
+}
+.ip-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ip-label{
+  display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);
+}
+.ip-label::before{
+  content:'©';display:inline-flex;align-items:center;justify-content:center;
+  width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:14px;
+}
+.ip-status{
+  padding:3px 11px;border-radius:20px;background:var(--orange);color:#fff;
+  font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;
+}
+.ip-title{font-size:18px;font-weight:900;color:var(--dark);letter-spacing:-.01em;margin-bottom:4px}
+.ip-sub{font-size:13px;color:var(--mid);line-height:1.65;margin-bottom:14px}
+.ip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}
+.ip-item{background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px}
+.ip-item span{display:block;font-size:9.5px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.ip-item b{font-size:12.5px;font-weight:700;color:var(--dark);line-height:1.4}
+
 /* ══ FOOTER ══════════════════════════════════════════════════════ */
 footer{
   background:var(--dark);padding:32px 6%;
@@ -550,10 +580,10 @@ footer{
       <div class="hero-eyebrow">Dubai, UAE &nbsp;·&nbsp; Open to Senior / Lead Roles</div>
       <h1 class="hero-name">Darshankumar<br><span class="accent">Prajapati</span></h1>
       <p class="hero-role"><strong>Lead Data Engineer</strong> &nbsp;·&nbsp; AI/ML Pipeline Architect &nbsp;·&nbsp; DWH Specialist</p>
-      <p class="hero-tagline">13+ years delivering enterprise data platforms for UAE government, healthcare &amp; US telecom. Expert in Dataiku DSS, Informatica IICS, Snowflake, and building AI-powered data pipelines from raw data to trusted business intelligence.</p>
+      <p class="hero-tagline">13+ years delivering enterprise data platforms for UAE government, healthcare &amp; US telecom. Expert in Dataiku DSS, Informatica IICS/IDMC, Snowflake, and building AI-powered data pipelines from raw data to trusted business intelligence.</p>
       <div class="hero-pills">
         <span class="hpill b">Dataiku DSS</span>
-        <span class="hpill b">Informatica IICS</span>
+        <span class="hpill b">Informatica IICS/IDMC</span>
         <span class="hpill b">Snowflake</span>
         <span class="hpill o">Fabric Data Engineering</span>
         <span class="hpill o">OpenAI / GenAI</span>
@@ -600,8 +630,8 @@ footer{
         <p>I hold a <strong>SnowPro Core Certification</strong>, Oracle Cloud Architect, and multiple Informatica and Dataiku certifications. I'm actively expanding in Azure and deepening AI/GenAI pipeline delivery.</p>
       </div>
       <div class="about-cards reveal reveal-d2">
-        <div class="acard"><h4>Dataiku DSS — Platform Lead</h4><p>Flow design, GenAI recipes, LLM Mesh, Scenarios, API nodes, ML Lab, version upgrades. Enterprise license.</p></div>
-        <div class="acard"><h4>Informatica IICS — 13 Years Depth</h4><p>CDI, CAI, CDGC, MDM SaaS. Secure Agent, Snowflake PDO, PowerCenter 9x/10x. Cloud and on-prem.</p></div>
+        <div class="acard"><h4>Dataiku DSS — Platform Lead</h4><p>Flow design, GenAI recipes, LLM Mesh, Scenarios, API nodes, Agent HUB, version upgrades. Enterprise license.</p></div>
+        <div class="acard"><h4>Informatica IICC/IDMC — 13 Years Depth</h4><p>CDI, CAI, CDGC, MDM SaaS. Secure Agent, Snowflake PDO, PowerCenter 9x/10x. Cloud and on-prem.</p></div>
         <div class="acard"><h4>Snowflake — SnowPro Core Certified</h4><p>DWH architecture, Streams &amp; Tasks CDC, Snowpipe, Data Sharing, Snowpark, cost governance.</p></div>
         <div class="acard"><h4>Azure — Hands-on, Actively Expanding</h4><p>ADF pipelines, Synapse Analytics, ADLS Gen2. AZ-900 completed · DP-203 in progress.</p></div>
       </div>
@@ -714,6 +744,7 @@ footer{
           <li>Built ISIC-4 economic classification pipeline using Dataiku + OpenAI — automated classification of 300K+ UAE companies, significantly reducing manual data steward effort</li>
           <li>Led LMI 3.0 DWH migration: PowerCenter → Talend (Data Vault 2.0) with Amurta MDM for national entity resolution</li>
           <li>Managed Informatica IICS CDI pipelines orchestrated with Dataiku Scenarios for end-to-end pipeline automation</li>
+          <li>Registered co-author of LA-AI — The Intelligent Legal Advisor, a smart application registered under UAE copyright law (Certificate No. 4159-2026)</li>
         </ul>
         <div class="ttech"><span>Dataiku DSS</span><span>Informatica IICS</span><span>OpenAI</span><span>Talend</span><span>Oracle SQL</span><span>Data Vault 2.0</span><span>Amurta MDM</span><span>Python</span></div>
 
@@ -726,6 +757,23 @@ footer{
             <div class="award-pill"><span class="aw-icon">🏅</span><div><span class="aw-place">Winner</span>Artificial Intelligence Systems Team</div></div>
           </div>
           <div class="award-note">Part of the MoHRE Data &amp; AI team honoured across 4 categories · Consecutive recognition in the UAE Data Maturity Index 2025</div>
+        </div>
+
+        <div class="ip-block">
+          <div class="ip-head">
+            <div class="ip-label">Registered Intellectual Property</div>
+            <div class="ip-status">Active</div>
+          </div>
+          <div class="ip-title">LA-AI — The Intelligent Legal Advisor</div>
+          <div class="ip-sub">Smart application registered with the UAE Copyright &amp; Related Rights Department. Registered co-author; copyright held by MoHRE.</div>
+          <div class="ip-grid">
+            <div class="ip-item"><span>Certificate No.</span><b>4159-2026</b></div>
+            <div class="ip-item"><span>Registered</span><b>20 October 2026</b></div>
+            <div class="ip-item"><span>Authority</span><b>UAE Ministry of Economy &amp; Tourism</b></div>
+            <div class="ip-item"><span>Category</span><b>Smart Applications, Software &amp; Software Applications</b></div>
+            <div class="ip-item"><span>Copyright Holder</span><b>MoHRE — Ministry of Human Resources &amp; Emiratisation</b></div>
+            <div class="ip-item"><span>My Role</span><b>Registered Co-Author</b></div>
+          </div>
         </div>
       </div>
 
@@ -975,8 +1023,8 @@ footer{
         <a href="mailto:darshanprajapati@ymail.com" class="clink"><span class="clink-icon">✉</span> darshanprajapati@ymail.com</a>
         <a href="https://www.linkedin.com/in/darshan30589/" target="_blank" class="clink"><span class="clink-icon">in</span> LinkedIn</a>
       </div>
-      <!-- Commented Contact US Section 
-	  <div class="cform reveal">
+      <!-- Commented Contact US Section
+      <div class="cform reveal">
         <div class="frow">
           <div class="fg"><label>Your Name</label><input type="text" placeholder="John Smith"></div>
           <div class="fg"><label>Your Email</label><input type="email" placeholder="john@company.com"></div>
@@ -986,7 +1034,7 @@ footer{
         <button class="bsub" onclick="handleForm(event)">Send Message →</button>
         <p class="fnote">Faster response via LinkedIn or direct email</p>
       </div>
-	  -->
+      -->
     </div>
   </div>
 </div>
